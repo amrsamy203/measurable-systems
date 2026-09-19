@@ -51,12 +51,13 @@ docker compose up --build -d
 
 | Service | URL | Demo login |
 |---|---|---|
-| Portfolio | http://localhost:3000 | — |
-| CaseFlow | http://localhost:8081 | `admin@caseflow.demo` / `password` |
-| DispatchGrid | http://localhost:8082 | `admin@dispatchgrid.demo` / `password` |
-| RelateAI | http://localhost:8083 | `user1@relateai.demo` / `password` |
+| **Gateway (all apps)** | http://localhost:3099 | — |
+| Portfolio | http://localhost:3099/ or :3000 | — |
+| CaseFlow | http://localhost:3099/caseflow/ or :8081 | `admin@caseflow.demo` / `password` |
+| DispatchGrid | http://localhost:3099/dispatchgrid/ or :8082 | `admin@dispatchgrid.demo` / `password` |
+| RelateAI | http://localhost:3099/relateai/ or :8083 | `user1@relateai.demo` / `password` |
 
-Full guide: [docs/DOCKER.md](docs/DOCKER.md)
+Public HTTPS (ngrok): see [docs/freelancing/live-links.md](docs/freelancing/live-links.md) — run `./start-https-tunnels.sh` after compose is up.
 
 ```bash
 docker compose down       # stop

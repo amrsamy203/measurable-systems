@@ -1,4 +1,11 @@
 (() => {
+  // Works at / locally and at /relateai/ behind the public gateway.
+  const BASE = (() => {
+    const p = location.pathname;
+    if (p === "/relateai" || p.startsWith("/relateai/")) return "/relateai";
+    return "";
+  })();
+
   const TOKEN_KEY = "relateai.token";
   const USER_KEY = "relateai.user";
 
@@ -15,7 +22,7 @@
       headers["Content-Type"] = headers["Content-Type"] || "application/json";
     }
     if (token) headers.Authorization = `Bearer ${token}`;
-    const res = await fetch(path, { ...options, headers });
+    const res = await fetch(BASE + path, { ...options, headers });
     if (res.status === 401) {
       logout(false);
       throw new Error("Unauthorized");

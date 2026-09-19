@@ -40,3 +40,13 @@ yarn-error.log*
 # Personal documents — keep private (do not publish phone/address CV)
 Amr-Samy-resume.pdf
 *.pdf
+
+# Local / private (not published to measurable-systems remote)
+portfolio-site/
+gateway/
+docs/freelancing/
+docs/DOCKER.md
+docs/constraints.md
+ngrok.local.yml
+start-https-tunnels.sh
+github-profile/

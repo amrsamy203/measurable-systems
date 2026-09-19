@@ -1,4 +1,11 @@
 (() => {
+  // Works at / locally and at /caseflow/ behind the public gateway.
+  const BASE = (() => {
+    const p = location.pathname;
+    if (p === "/caseflow" || p.startsWith("/caseflow/")) return "/caseflow";
+    return "";
+  })();
+
   const state = {
     token: localStorage.getItem("caseflow_token") || "",
     user: JSON.parse(localStorage.getItem("caseflow_user") || "null"),
@@ -13,7 +20,7 @@
       options.headers || {}
     );
     if (state.token) headers.Authorization = `Bearer ${state.token}`;
-    const res = await fetch(path, { ...options, headers });
+    const res = await fetch(BASE + path, { ...options, headers });
     if (res.status === 401) {
       logout(false);
       throw new Error("Unauthorized");

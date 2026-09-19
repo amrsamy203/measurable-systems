@@ -1,7 +1,8 @@
-# Full Measurable Systems stack — portfolio + 3 demos
+# Full Measurable Systems stack — portfolio + 3 demos + public gateway
 # Usage: docker compose up --build
 #
 # URLs (host):
+#   Gateway       http://localhost:3099   (portfolio + /caseflow /dispatchgrid /relateai)
 #   Portfolio     http://localhost:3000
 #   CaseFlow      http://localhost:8081
 #   DispatchGrid  http://localhost:8082
@@ -12,6 +13,19 @@
 name: amr-portfolio
 
 services:
+  gateway:
+    image: nginx:1.27-alpine
+    ports:
+      - "3099:80"
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - portfolio
+      - caseflow
+      - dispatchgrid
+      - relateai
+    restart: unless-stopped
+
   portfolio:
     build:
       context: ./portfolio-site

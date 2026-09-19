@@ -1,4 +1,11 @@
 (() => {
+  // Works at / locally and at /dispatchgrid/ behind the public gateway.
+  const BASE = (() => {
+    const p = location.pathname;
+    if (p === "/dispatchgrid" || p.startsWith("/dispatchgrid/")) return "/dispatchgrid";
+    return "";
+  })();
+
   const state = {
     token: localStorage.getItem("dispatchgrid_token") || "",
     user: JSON.parse(localStorage.getItem("dispatchgrid_user") || "null"),
@@ -13,7 +20,7 @@
       options.headers || {}
     );
     if (state.token) headers.Authorization = `Bearer ${state.token}`;
-    const res = await fetch(path, { ...options, headers });
+    const res = await fetch(BASE + path, { ...options, headers });
     if (res.status === 401) {
       logout(false);
       throw new Error("Unauthorized");
