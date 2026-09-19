@@ -1,0 +1,185 @@
+# Full Measurable Systems stack — portfolio + 3 demos
+# Usage: docker compose up --build
+#
+# URLs (host):
+#   Portfolio     http://localhost:3000
+#   CaseFlow      http://localhost:8081
+#   DispatchGrid  http://localhost:8082
+#   RelateAI      http://localhost:8083
+#   RabbitMQ UI   http://localhost:15672 (caseflow / caseflow)
+#                 http://localhost:15673 (dispatchgrid / dispatchgrid)
+
+name: amr-portfolio
+
+services:
+  portfolio:
+    build:
+      context: ./portfolio-site
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
+  # ---------- CaseFlow ----------
+  caseflow-postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: caseflow
+      POSTGRES_USER: caseflow
+      POSTGRES_PASSWORD: caseflow
+    volumes:
+      - caseflow_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U caseflow -d caseflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  caseflow-rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: caseflow
+      RABBITMQ_DEFAULT_PASS: caseflow
+    ports:
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  caseflow:
+    build:
+      context: ./projects/caseflow
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: "8080"
+      POSTGRES_HOST: caseflow-postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: caseflow
+      POSTGRES_USER: caseflow
+      POSTGRES_PASSWORD: caseflow
+      RABBITMQ_HOST: caseflow-rabbitmq
+      RABBITMQ_PORT: "5672"
+      RABBITMQ_USER: caseflow
+      RABBITMQ_PASSWORD: caseflow
+      CASEFLOW_JWT_SECRET: caseflow-demo-secret-key-change-me-32b!!
+    depends_on:
+      caseflow-postgres:
+        condition: service_healthy
+      caseflow-rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:8080/actuator/health | grep -q UP"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 90s
+
+  # ---------- DispatchGrid ----------
+  dispatchgrid-postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: dispatchgrid
+      POSTGRES_USER: dispatchgrid
+      POSTGRES_PASSWORD: dispatchgrid
+    volumes:
+      - dispatchgrid_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dispatchgrid -d dispatchgrid"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  dispatchgrid-rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: dispatchgrid
+      RABBITMQ_DEFAULT_PASS: dispatchgrid
+    ports:
+      - "15673:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  dispatchgrid:
+    build:
+      context: ./projects/dispatchgrid
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: "8080"
+      POSTGRES_HOST: dispatchgrid-postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: dispatchgrid
+      POSTGRES_USER: dispatchgrid
+      POSTGRES_PASSWORD: dispatchgrid
+      RABBITMQ_HOST: dispatchgrid-rabbitmq
+      RABBITMQ_PORT: "5672"
+      RABBITMQ_USER: dispatchgrid
+      RABBITMQ_PASSWORD: dispatchgrid
+      DISPATCHGRID_JWT_SECRET: dispatchgrid-demo-secret-key-change-me-32b!!
+    depends_on:
+      dispatchgrid-postgres:
+        condition: service_healthy
+      dispatchgrid-rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:8080/actuator/health | grep -q UP"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 90s
+
+  # ---------- RelateAI ----------
+  relateai-postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: relateai
+      POSTGRES_USER: relateai
+      POSTGRES_PASSWORD: relateai
+    volumes:
+      - relateai_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U relateai -d relateai"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  relateai:
+    build:
+      context: ./projects/relateai
+    ports:
+      - "8083:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: "8080"
+      POSTGRES_HOST: relateai-postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: relateai
+      POSTGRES_USER: relateai
+      POSTGRES_PASSWORD: relateai
+      RELATEAI_JWT_SECRET: relateai-demo-secret-key-change-me-32b!!
+      RELATEAI_UPLOAD_DIR: /app/data/uploads
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    volumes:
+      - relateai_uploads:/app/data/uploads
+    depends_on:
+      relateai-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:8080/actuator/health | grep -q UP"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 90s
+
+volumes:
+  caseflow_pg:
+  dispatchgrid_pg:
+  relateai_pg:
+  relateai_uploads:

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RelateAI — Community Graph</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <section id="login-view" class="login-view">
+    <div class="login-panel">
+      <p class="brand">RelateAI</p>
+      <h1>Community Graph</h1>
+      <p class="lede">Social + topic insights, daily AI challenges, media upload.</p>
+      <form id="login-form">
+        <label>
+          Email
+          <input id="email" type="email" value="user1@relateai.demo" autocomplete="username" required />
+        </label>
+        <label>
+          Password
+          <input id="password" type="password" value="password" autocomplete="current-password" required />
+        </label>
+        <button type="submit" class="btn primary">Sign in</button>
+        <p id="login-error" class="error" hidden></p>
+      </form>
+      <p class="hint">Demo: user1@relateai.demo / admin@relateai.demo — password</p>
+    </div>
+  </section>
+
+  <div id="app-view" class="app-view" hidden>
+    <header class="topbar">
+      <div class="brand-block">
+        <span class="brand">RelateAI</span>
+        <span class="tag">Graph · Challenge · Media</span>
+      </div>
+      <div class="user-meta">
+        <span id="user-label"></span>
+        <button type="button" id="logout-btn" class="btn ghost">Logout</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Daily challenge</h2>
+          <span id="challenge-source" class="pill"></span>
+        </div>
+        <p id="challenge-prompt" class="challenge-prompt">Loading…</p>
+        <p id="challenge-date" class="muted small"></p>
+        <form id="response-form" class="stack">
+          <label>
+            Your response
+            <textarea id="response-body" rows="3" placeholder="Write a short response…" required></textarea>
+          </label>
+          <button type="submit" class="btn primary">Submit response</button>
+        </form>
+        <p id="challenge-msg" class="msg" hidden></p>
+        <div id="responses-list" class="list"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Graph insights</h2>
+          <button type="button" id="refresh-graph" class="btn secondary">Refresh</button>
+        </div>
+        <div class="insight-grid">
+          <div>
+            <h3>Top connected</h3>
+            <ul id="top-connected" class="list"></ul>
+          </div>
+          <div>
+            <h3>Hottest topics</h3>
+            <ul id="hottest-topics" class="list"></ul>
+          </div>
+          <div>
+            <h3>Recommended for you</h3>
+            <ul id="recommendations" class="list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Media upload</h2>
+        </div>
+        <form id="upload-form" class="stack">
+          <label>
+            Image file
+            <input id="upload-file" type="file" accept="image/jpeg,image/png,image/gif,image/webp" required />
+          </label>
+          <button type="submit" class="btn secondary">Upload</button>
+        </form>
+        <p id="upload-msg" class="msg" hidden></p>
+        <div id="upload-preview" class="upload-preview" hidden>
+          <img id="upload-img" alt="Uploaded preview" />
+          <a id="upload-link" href="#" target="_blank" rel="noopener">Open URL</a>
+        </div>
+      </section>
+
+      <section class="panel console-panel">
+        <div class="panel-head">
+          <h2>Throughput</h2>
+          <span class="live-dot" title="Polling"></span>
+        </div>
+        <div class="metrics-grid" id="metrics-grid">
+          <div class="metric"><span class="metric-label">Challenges</span><span class="metric-value amber" id="m-challenges">0</span></div>
+          <div class="metric"><span class="metric-label">Interactions</span><span class="metric-value amber" id="m-interactions">0</span></div>
+          <div class="metric"><span class="metric-label">Follows</span><span class="metric-value" id="m-follows">0</span></div>
+          <div class="metric"><span class="metric-label">Topic joins</span><span class="metric-value" id="m-joins">0</span></div>
+          <div class="metric"><span class="metric-label">Responses</span><span class="metric-value" id="m-responses">0</span></div>
+          <div class="metric"><span class="metric-label">Uploads</span><span class="metric-value" id="m-uploads">0</span></div>
+        </div>
+        <p class="muted small">Updated <span id="m-updated">—</span></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

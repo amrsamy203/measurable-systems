@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CaseFlow — Ops Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <section id="login-view" class="login-view">
+    <div class="login-panel">
+      <p class="brand">CaseFlow</p>
+      <h1>Ops Console</h1>
+      <p class="lede">Investigation case engine — ingest, route, assign, measure.</p>
+      <form id="login-form">
+        <label>
+          Email
+          <input id="email" type="email" value="admin@caseflow.demo" autocomplete="username" required />
+        </label>
+        <label>
+          Password
+          <input id="password" type="password" value="password" autocomplete="current-password" required />
+        </label>
+        <button type="submit" class="btn primary">Sign in</button>
+        <p id="login-error" class="error" hidden></p>
+      </form>
+      <p class="hint">Demo: admin@ / agent1@ / supervisor@caseflow.demo — password</p>
+    </div>
+  </section>
+
+  <div id="app-view" class="app-view" hidden>
+    <header class="topbar">
+      <div class="brand-block">
+        <span class="brand">CaseFlow</span>
+        <span class="tag">Throughput Engineering</span>
+      </div>
+      <div class="user-meta">
+        <span id="user-label"></span>
+        <button type="button" id="logout-btn" class="btn ghost">Logout</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel console-panel">
+        <div class="panel-head">
+          <h2>Throughput Console</h2>
+          <span class="live-dot" title="Polling every 1.5s"></span>
+        </div>
+        <div class="metrics-grid" id="metrics-grid">
+          <div class="metric"><span class="metric-label">Events processed</span><span class="metric-value amber" id="m-processed">0</span></div>
+          <div class="metric"><span class="metric-label">Events / sec</span><span class="metric-value amber" id="m-eps">0</span></div>
+          <div class="metric"><span class="metric-label">p95 latency ms</span><span class="metric-value amber" id="m-p95">0</span></div>
+          <div class="metric"><span class="metric-label">Queue depth</span><span class="metric-value" id="m-depth">0</span></div>
+          <div class="metric"><span class="metric-label">Failures</span><span class="metric-value" id="m-fail">0</span></div>
+          <div class="metric"><span class="metric-label">Updated</span><span class="metric-value mono small" id="m-updated">—</span></div>
+        </div>
+        <div class="controls-row">
+          <button type="button" id="simulate-btn" class="btn primary">Simulate 100 events</button>
+          <label class="inline">
+            Count
+            <input id="sim-count" type="number" min="1" max="1000" value="100" />
+          </label>
+        </div>
+        <div class="controls-row failure-row">
+          <span class="subhead">Failure injection</span>
+          <label class="inline">Slow ms <input id="slow-ms" type="number" min="0" value="0" /></label>
+          <label class="inline">Fail % <input id="fail-pct" type="number" min="0" max="100" value="0" /></label>
+          <button type="button" id="inject-btn" class="btn secondary">Apply</button>
+        </div>
+        <p id="demo-msg" class="msg" hidden></p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Cases board</h2>
+          <div class="filters">
+            <select id="status-filter">
+              <option value="">All statuses</option>
+              <option>NEW</option>
+              <option>QUEUED</option>
+              <option>ASSIGNED</option>
+              <option>IN_PROGRESS</option>
+              <option>RESOLVED</option>
+              <option>CLOSED</option>
+            </select>
+            <button type="button" id="refresh-cases" class="btn ghost">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Ref</th>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Queue</th>
+                <th>Assignee</th>
+                <th>SLA</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cases-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="split">
+        <div class="panel">
+          <div class="panel-head"><h2>Agents</h2></div>
+          <ul id="agents-list" class="list"></ul>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Queues</h2></div>
+          <ul id="queues-list" class="list"></ul>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2>Architecture Explorer</h2></div>
+        <div id="arch-view" class="arch-view"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

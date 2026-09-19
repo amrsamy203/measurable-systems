@@ -1,0 +1,20 @@
+.metric {
+  min-width: 0;
+}
+
+.value {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--teal);
+  line-height: 1.1;
+}
+
+.label {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 16rem;
+}

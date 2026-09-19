@@ -1,0 +1,56 @@
+.section {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(21, 29, 46, 0.45) 40%,
+    transparent 100%
+  );
+}
+
+.grid {
+  display: grid;
+  gap: 0;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.pkg {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.name {
+  margin: 0 0 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.for {
+  margin: 0 0 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.forLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-right: 0.4rem;
+}
+
+.includes {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  max-width: 36rem;
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3rem;
+  }
+}

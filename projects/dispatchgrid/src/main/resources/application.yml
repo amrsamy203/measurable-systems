@@ -1,0 +1,95 @@
+spring:
+  application:
+    name: dispatchgrid
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+dispatchgrid:
+  jwt:
+    secret: ${DISPATCHGRID_JWT_SECRET:dispatchgrid-demo-secret-key-change-me-32b!!}
+    expiration-ms: ${DISPATCHGRID_JWT_EXPIRATION_MS:86400000}
+  dispatch:
+    max-attempts: 3
+    base-backoff-ms: 200
+    outbox-poll-ms: 250
+    batch-size: 50
+  providers:
+    sms:
+      tokens-per-second: 80
+      burst: 40
+    email:
+      tokens-per-second: 120
+      burst: 60
+    webhook:
+      tokens-per-second: 100
+      burst: 50
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.amrsamy.dispatchgrid: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+  datasource:
+    url: jdbc:h2:mem:dispatchgrid;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: never
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:postgres}:${POSTGRES_PORT:5432}/${POSTGRES_DB:dispatchgrid}
+    username: ${POSTGRES_USER:dispatchgrid}
+    password: ${POSTGRES_PASSWORD:dispatchgrid}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  rabbitmq:
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:dispatchgrid}
+    password: ${RABBITMQ_PASSWORD:dispatchgrid}

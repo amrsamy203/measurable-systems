@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: relateai
+      POSTGRES_USER: relateai
+      POSTGRES_PASSWORD: relateai
+    ports:
+      - "5433:5432"
+    volumes:
+      - relateai_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U relateai -d relateai"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: relateai
+      POSTGRES_USER: relateai
+      POSTGRES_PASSWORD: relateai
+      RELATEAI_JWT_SECRET: relateai-demo-secret-key-change-me-32b!!
+      RELATEAI_UPLOAD_DIR: /app/data/uploads
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    volumes:
+      - relateai_uploads:/app/data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  relateai_pg:
+  relateai_uploads:

@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: dispatchgrid
+      POSTGRES_USER: dispatchgrid
+      POSTGRES_PASSWORD: dispatchgrid
+    ports:
+      - "5432:5432"
+    volumes:
+      - dispatchgrid_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dispatchgrid -d dispatchgrid"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: dispatchgrid
+      RABBITMQ_DEFAULT_PASS: dispatchgrid
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: dispatchgrid
+      POSTGRES_USER: dispatchgrid
+      POSTGRES_PASSWORD: dispatchgrid
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: dispatchgrid
+      RABBITMQ_PASSWORD: dispatchgrid
+      DISPATCHGRID_JWT_SECRET: dispatchgrid-demo-secret-key-change-me-32b!!
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+volumes:
+  dispatchgrid_pg:

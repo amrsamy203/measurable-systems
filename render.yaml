@@ -1,0 +1,51 @@
+# Render Blueprint — public demos (optional cloud deploy)
+# https://render.com/docs/blueprint-spec
+# Connect this Git repo in Render Dashboard → New → Blueprint
+
+services:
+  - type: web
+    name: caseflow
+    runtime: docker
+    dockerfilePath: ./projects/caseflow/Dockerfile
+    dockerContext: ./projects/caseflow
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: local
+      - key: SERVER_PORT
+        value: "8080"
+      - key: JWT_SECRET
+        generateValue: true
+
+  - type: web
+    name: dispatchgrid
+    runtime: docker
+    dockerfilePath: ./projects/dispatchgrid/Dockerfile
+    dockerContext: ./projects/dispatchgrid
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: local
+      - key: SERVER_PORT
+        value: "8080"
+      - key: JWT_SECRET
+        generateValue: true
+
+  - type: web
+    name: relateai
+    runtime: docker
+    dockerfilePath: ./projects/relateai/Dockerfile
+    dockerContext: ./projects/relateai
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: local
+      - key: SERVER_PORT
+        value: "8080"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false

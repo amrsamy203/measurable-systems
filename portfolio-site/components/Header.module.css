@@ -1,0 +1,144 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease),
+    backdrop-filter 0.25s var(--ease);
+}
+
+.scrolled {
+  background: rgba(11, 18, 32, 0.85);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  height: var(--header-h);
+  gap: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-right: auto;
+}
+
+.brandMark {
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--teal);
+  box-shadow: 0 0 12px var(--teal-glow);
+}
+
+.brandName {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: 1rem;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s var(--ease);
+}
+
+.navLink:hover {
+  color: var(--teal);
+}
+
+.cta {
+  display: none;
+}
+
+.menuBtn {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+}
+
+.menuBtn span {
+  display: block;
+  width: 1rem;
+  height: 1px;
+  margin-inline: auto;
+  background: var(--text);
+  transition: transform 0.2s var(--ease);
+}
+
+.menuBtn[aria-expanded="true"] span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.menuBtn[aria-expanded="true"] span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+.mobile {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  padding: 1.5rem;
+  background: rgba(11, 18, 32, 0.97);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.5rem);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.mobileOpen {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.mobile nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mobile a {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.mobile .btn {
+  width: fit-content;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 860px) {
+  .nav,
+  .cta {
+    display: inline-flex;
+  }
+
+  .menuBtn,
+  .mobile {
+    display: none;
+  }
+}

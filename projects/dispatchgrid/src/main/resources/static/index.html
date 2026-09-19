@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DispatchGrid — Ops Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <section id="login-view" class="login-view">
+    <div class="login-panel">
+      <p class="brand">DispatchGrid</p>
+      <h1>Ops Console</h1>
+      <p class="lede">Multi-provider campaign orchestrator — rate limits, retries, DLQ, receipts.</p>
+      <form id="login-form">
+        <label>
+          Email
+          <input id="email" type="email" value="admin@dispatchgrid.demo" autocomplete="username" required />
+        </label>
+        <label>
+          Password
+          <input id="password" type="password" value="password" autocomplete="current-password" required />
+        </label>
+        <button type="submit" class="btn primary">Sign in</button>
+        <p id="login-error" class="error" hidden></p>
+      </form>
+      <p class="hint">Demo: admin@dispatchgrid.demo / password</p>
+    </div>
+  </section>
+
+  <div id="app-view" class="app-view" hidden>
+    <header class="topbar">
+      <div class="brand-block">
+        <span class="brand">DispatchGrid</span>
+        <span class="tag">High-volume Messaging</span>
+      </div>
+      <div class="user-meta">
+        <span id="user-label"></span>
+        <button type="button" id="logout-btn" class="btn ghost">Logout</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel console-panel">
+        <div class="panel-head">
+          <h2>Throughput Console</h2>
+          <span class="live-dot" title="Polling every 1.5s"></span>
+        </div>
+        <div class="metrics-grid" id="metrics-grid">
+          <div class="metric"><span class="metric-label">Messages sent</span><span class="metric-value amber" id="m-sent">0</span></div>
+          <div class="metric"><span class="metric-label">Sent / sec</span><span class="metric-value amber" id="m-sps">0</span></div>
+          <div class="metric"><span class="metric-label">p95 latency ms</span><span class="metric-value amber" id="m-p95">0</span></div>
+          <div class="metric"><span class="metric-label">Outbox depth</span><span class="metric-value" id="m-depth">0</span></div>
+          <div class="metric"><span class="metric-label">Failures</span><span class="metric-value" id="m-fail">0</span></div>
+          <div class="metric"><span class="metric-label">Updated</span><span class="metric-value mono small" id="m-updated">—</span></div>
+        </div>
+        <div class="controls-row">
+          <label class="inline">
+            Channel
+            <select id="sim-channel">
+              <option value="SMS">SMS</option>
+              <option value="EMAIL">EMAIL</option>
+              <option value="WEBHOOK">WEBHOOK</option>
+            </select>
+          </label>
+          <label class="inline">
+            Count
+            <input id="sim-count" type="number" min="1" max="5000" value="500" />
+          </label>
+          <button type="button" id="simulate-btn" class="btn primary">Simulate campaign</button>
+        </div>
+        <div class="controls-row failure-row">
+          <span class="subhead">Failure injection</span>
+          <label class="inline">Provider
+            <select id="inject-provider">
+              <option value="GLOBAL">GLOBAL</option>
+              <option value="FAKE_SMS">FAKE_SMS</option>
+              <option value="FAKE_EMAIL">FAKE_EMAIL</option>
+              <option value="FAKE_WEBHOOK">FAKE_WEBHOOK</option>
+            </select>
+          </label>
+          <label class="inline">Slow ms <input id="slow-ms" type="number" min="0" value="0" /></label>
+          <label class="inline">Fail % <input id="fail-pct" type="number" min="0" max="100" value="0" /></label>
+          <button type="button" id="inject-btn" class="btn secondary">Apply</button>
+        </div>
+        <p id="demo-msg" class="msg" hidden></p>
+        <p class="hint api-key-hint">Machine send API key: <code id="demo-api-key">dg_demo_sk_live_7f3a9c2e8b1d4f6a</code> (header <code>X-Api-Key</code>)</p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Campaigns</h2>
+          <button type="button" id="refresh-campaigns" class="btn ghost">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Channel</th>
+                <th>Status</th>
+                <th>Recipients</th>
+                <th>Sent</th>
+                <th>Failed</th>
+                <th>Started</th>
+              </tr>
+            </thead>
+            <tbody id="campaigns-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel arch-panel">
+        <div class="panel-head">
+          <h2>Architecture</h2>
+        </div>
+        <div id="arch-content" class="arch-content">
+          <p class="muted">Loading…</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
