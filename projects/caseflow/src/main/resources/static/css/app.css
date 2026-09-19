@@ -50,6 +50,12 @@ html, body {
   z-index: 1;
 }
 
+.login-view[hidden],
+.app-view[hidden],
+[hidden] {
+  display: none !important;
+}
+
 .login-view {
   min-height: 100vh;
   display: grid;
