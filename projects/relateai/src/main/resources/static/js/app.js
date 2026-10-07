@@ -179,13 +179,14 @@
     form.append("file", file);
     try {
       const data = await api("/api/media/upload", { method: "POST", body: form });
-      msg.textContent = `Uploaded → ${data.publicPath}`;
+      const fileUrl = BASE + data.publicPath;
+      msg.textContent = `Uploaded → ${fileUrl}`;
       msg.style.color = "var(--teal)";
       msg.hidden = false;
       $("upload-preview").hidden = false;
-      $("upload-img").src = data.publicPath;
-      $("upload-link").href = data.publicPath;
-      $("upload-link").textContent = data.publicPath;
+      $("upload-img").src = fileUrl;
+      $("upload-link").href = fileUrl;
+      $("upload-link").textContent = fileUrl;
       loadMetrics();
     } catch (err) {
       msg.textContent = err.message;
