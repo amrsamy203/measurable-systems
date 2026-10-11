@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Page not found</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section">
+        <div class="container">
+            <div class="confirm-card">
+                <span class="confirm-icon is-muted" aria-hidden="true"><svg><use href="#i-snow"/></svg></span>
+                <h1>This page has gone cold</h1>
+                <p class="lead">We couldn&rsquo;t find what you were looking for.</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    <a class="btn btn-pill btn-coral" th:href="@{/book}">Book a visit</a>
+                    <a class="btn btn-pill btn-soft" th:href="@{/}">Back to home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

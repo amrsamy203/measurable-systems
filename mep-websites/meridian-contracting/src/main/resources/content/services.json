@@ -1,0 +1,116 @@
+[
+  {
+    "slug": "hvac",
+    "name": "HVAC & Ventilation",
+    "icon": "fan",
+    "summary": "Chilled-water plants, VRF and packaged systems, smoke control and kitchen exhaust — sized, balanced and commissioned.",
+    "description": "From the first heat-load run to the final balancing report, our mechanical team designs, supplies and installs air-conditioning and ventilation that hits design conditions on handover day — not after six months of call-backs. We prefabricate ductwork in our 10th of Ramadan workshop and test every AHU before it leaves.",
+    "scope": [
+      "Heat-load calculations and equipment selection",
+      "Chillers, cooling towers, AHUs, FCUs and VRF systems",
+      "Ductwork fabrication, insulation and installation",
+      "Car-park ventilation, stair pressurisation and smoke extraction",
+      "Testing, adjusting and balancing (TAB) with signed reports"
+    ],
+    "systems": ["Chilled-water plants", "VRF / VRV", "Packaged & split units", "Clean-room & theatre HVAC", "Kitchen extract", "Smoke management"],
+    "standards": ["ASHRAE 62.1 & 90.1", "SMACNA duct standards", "Egyptian HVAC Code (ECP 603)"],
+    "image": "plantroom.jpg",
+    "metricValue": "1,850 TR",
+    "metricLabel": "largest chilled-water plant delivered"
+  },
+  {
+    "slug": "electrical",
+    "name": "Electrical Power & Lighting",
+    "icon": "bolt",
+    "summary": "MV/LV distribution, generators, UPS, lighting and controls, earthing and lightning protection.",
+    "description": "We build power systems that utilities approve first time and facility teams can maintain: clear single-line diagrams, labelled panels, selective protection and full test documentation. Our electrical engineers coordinate directly with the distribution company so energisation never waits on paperwork.",
+    "scope": [
+      "Medium-voltage switchgear and transformer rooms",
+      "Main and sub-main LV distribution boards",
+      "Standby generators, ATS and UPS systems",
+      "Interior, exterior and emergency lighting with controls",
+      "Earthing, lightning protection and power-quality studies"
+    ],
+    "systems": ["MV/LV switchgear", "Busbar trunking", "Diesel generators", "UPS & batteries", "DALI lighting control", "Lightning protection"],
+    "standards": ["IEC 60364", "IEC 61439", "Egyptian Electrical Code"],
+    "image": "switchgear.jpg",
+    "metricValue": "2 × 2,000 kVA",
+    "metricLabel": "standby power on a single site"
+  },
+  {
+    "slug": "plumbing",
+    "name": "Plumbing & Drainage",
+    "icon": "drop",
+    "summary": "Water supply and booster sets, hot water, drainage and venting, lift stations and water treatment.",
+    "description": "Water systems fail quietly and expensively. We size risers and booster sets from real demand profiles, pressure-test every zone before close-up, and hand over isometric as-builts so leaks can be traced in minutes rather than days.",
+    "scope": [
+      "Domestic cold and hot water networks with booster pumps",
+      "Solar and heat-pump hot-water systems",
+      "Soil, waste, vent and storm drainage",
+      "Sewage lift stations and grease interceptors",
+      "Water treatment, filtration and irrigation"
+    ],
+    "systems": ["Booster sets", "PPR / HDPE / copper networks", "Solar hot water", "Lift stations", "Water treatment", "Pool & fountain plant"],
+    "standards": ["International Plumbing Code", "Egyptian Plumbing Code", "WHO drinking-water guidance"],
+    "image": "resort.jpg",
+    "metricValue": "1,500 m³/day",
+    "metricLabel": "water treated for a single resort"
+  },
+  {
+    "slug": "fire-protection",
+    "name": "Fire Fighting & Fire Alarm",
+    "icon": "flame",
+    "summary": "Sprinklers, hydrants, fire pumps, clean-agent suppression and addressable fire alarm with voice evacuation.",
+    "description": "Life-safety systems are where shortcuts cost the most. Our licensed fire team handles hydraulic calculations, Civil Defence submittals and witness testing, then trains your facility staff on the panels they will actually use.",
+    "scope": [
+      "Hydraulically calculated sprinkler systems",
+      "Fire pumps (electric, diesel, jockey) and fire water tanks",
+      "Landing valves, hose reels and external hydrants",
+      "FM-200 / Novec clean-agent suppression for critical rooms",
+      "Addressable fire alarm and voice evacuation systems"
+    ],
+    "systems": ["Wet & pre-action sprinklers", "Fire pump sets", "Clean-agent suppression", "Addressable fire alarm", "Voice evacuation", "Kitchen hood suppression"],
+    "standards": ["NFPA 13, 14, 20 & 72", "Egyptian Fire Code", "Civil Defence approvals"],
+    "image": "firepump.jpg",
+    "metricValue": "4,200+",
+    "metricLabel": "sprinkler heads on one hospital"
+  },
+  {
+    "slug": "low-current",
+    "name": "Low Current & ELV",
+    "icon": "network",
+    "summary": "Structured cabling, CCTV, access control, public address, nurse call and IPTV — one integrated backbone.",
+    "description": "Modern buildings run on low-current systems as much as on power. We design one coordinated ELV backbone instead of six separate contractors' cables, then integrate CCTV, access control and fire alarm so security teams work from a single screen.",
+    "scope": [
+      "Structured cabling (Cat 6A and fibre backbones)",
+      "IP CCTV with video analytics",
+      "Access control, intercom and visitor management",
+      "Public address and background music",
+      "Nurse call, IPTV and MATV systems"
+    ],
+    "systems": ["Structured cabling", "IP CCTV", "Access control", "PA / BGM", "Nurse call", "IPTV"],
+    "standards": ["TIA-568", "EN 62676 (CCTV)", "EN 54-16 (voice alarm)"],
+    "image": "datacenter.jpg",
+    "metricValue": "38 km",
+    "metricLabel": "of data cabling on a single campus"
+  },
+  {
+    "slug": "bms",
+    "name": "BMS & Energy Management",
+    "icon": "chip",
+    "summary": "Building management systems, energy metering and commissioning that keep running costs visible.",
+    "description": "A building is only as efficient as the controls that run it. We integrate chillers, AHUs, lighting and meters into one BMS, tune the sequences during seasonal commissioning, and leave owners with dashboards that show where every kilowatt-hour goes.",
+    "scope": [
+      "BMS design, programming and graphics",
+      "BACnet / Modbus integration of third-party plant",
+      "Sub-metering for energy, water and chilled water",
+      "Seasonal commissioning and retro-commissioning",
+      "Energy audits with payback-ranked recommendations"
+    ],
+    "systems": ["BMS controllers", "Energy meters", "Chiller plant optimisation", "Lighting control integration", "Dashboards & alarms"],
+    "standards": ["BACnet (ISO 16484-5)", "ASHRAE Guideline 36", "LEED v4 EA credits"],
+    "image": "ceiling.jpg",
+    "metricValue": "28%",
+    "metricLabel": "energy saved below baseline on Orbit Business Park"
+  }
+]

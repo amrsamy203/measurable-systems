@@ -1,0 +1,44 @@
+[
+  {
+    "discipline": "MECHANICAL",
+    "summary": "Heat-load calculations, air-side and water-side system design, smoke control and the plant rooms that make it all serviceable.",
+    "scope": ["Cooling & heating load analysis", "Chilled-water, VRF and DX system design", "Ventilation, kitchen & laboratory exhaust", "Stair pressurisation & smoke management", "Acoustic & vibration control"],
+    "tools": ["Carrier HAP", "Revit MEP", "Elite Fire"],
+    "standards": ["ASHRAE 62.1 / 90.1", "Egyptian Code ECP 306", "SMACNA"]
+  },
+  {
+    "discipline": "ELECTRICAL",
+    "summary": "From the utility connection to the last luminaire: power distribution, standby generation, lighting design and earthing.",
+    "scope": ["MV/LV distribution & single-line diagrams", "Short-circuit, selectivity & load-flow studies", "Generators, UPS & ATS schemes", "Interior & façade lighting design", "Lightning protection & earthing"],
+    "tools": ["ETAP", "DIALux evo", "Revit MEP"],
+    "standards": ["IEC 60364", "Egyptian Electrical Code", "CIBSE LG"]
+  },
+  {
+    "discipline": "PUBLIC_HEALTH",
+    "summary": "Water supply, drainage and treatment designed for real usage patterns — and for places where municipal services are limited.",
+    "scope": ["Domestic cold & hot water systems", "Soil, waste & storm drainage", "Water & sewage treatment plants", "Irrigation & grey-water reuse", "Medical & laboratory gases"],
+    "tools": ["Revit MEP", "Pipe Flo"],
+    "standards": ["Egyptian Plumbing Code", "IPC", "HTM 02-01"]
+  },
+  {
+    "discipline": "FIRE",
+    "summary": "Fire strategies, suppression and detection designed with the authority's approval in mind from the first sketch.",
+    "scope": ["Fire & life-safety strategy reports", "Sprinkler & standpipe hydraulic design", "Clean-agent & inert-gas suppression", "Addressable fire alarm & voice evacuation", "Civil Defence approval submissions"],
+    "tools": ["Elite Fire", "AutoCAD MEP"],
+    "standards": ["NFPA 13 / 14 / 20 / 72 / 101", "Egyptian Fire Code"]
+  },
+  {
+    "discipline": "ELV",
+    "summary": "The building's nervous system: data networks, security, audio-visual and the integration that ties them to the BMS.",
+    "scope": ["Structured cabling & active network design", "CCTV, access control & intrusion", "Public address & AV", "Nurse call & hospital systems", "BMS & integration architecture"],
+    "tools": ["Revit MEP", "AutoCAD MEP"],
+    "standards": ["TIA-568", "EN 62676", "BACnet"]
+  },
+  {
+    "discipline": "SUSTAINABILITY",
+    "summary": "Energy modelling and green-building consultancy that informs design decisions rather than documenting them afterwards.",
+    "scope": ["Whole-building energy modelling", "LEED, EDGE & GPRS certification", "Daylight & thermal comfort studies", "Existing-building energy audits", "Measurement & verification plans"],
+    "tools": ["IES VE", "EnergyPlus", "DIALux evo"],
+    "standards": ["LEED v4.1", "EDGE", "ASHRAE 90.1 Appendix G"]
+  }
+]

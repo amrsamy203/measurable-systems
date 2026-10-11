@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title th:text="${selectedSector != null} ? ${selectedSector.label} + ' projects' : 'Projects'">Projects</title>
+    <meta name="description" content="MEP projects delivered by Meridian: hospitals, offices, schools, resorts, factories and data centres across Egypt.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section th:replace="~{fragments/ui :: pageHeader('Projects', 'Buildings we have brought to life.', 'Each project below was delivered as a full or partial MEP package. Filter by sector to see work closest to yours.', 'switchgear.jpg')}"></section>
+
+    <section class="section">
+        <div class="container">
+            <nav class="filter-bar" aria-label="Filter projects by sector">
+                <a th:href="@{/projects}" th:classappend="${selectedSector == null} ? 'active'"
+                   th:attr="aria-current=${selectedSector == null} ? 'page'">All <span th:text="${total}">8</span></a>
+                <th:block th:each="entry : ${sectorCounts}">
+                    <a th:if="${entry.value > 0}" th:href="@{/projects(sector=${entry.key.slug})}"
+                       th:classappend="${selectedSector == entry.key} ? 'active'"
+                       th:attr="aria-current=${selectedSector == entry.key} ? 'page'">
+                        <th:block th:text="${entry.key.label}">Sector</th:block> <span th:text="${entry.value}">1</span>
+                    </a>
+                </th:block>
+            </nav>
+
+            <p class="result-count" role="status">
+                Showing <strong th:text="${#lists.size(projects)}">8</strong>
+                <th:block th:text="${#lists.size(projects) == 1} ? 'project' : 'projects'">projects</th:block>
+                <th:block th:if="${selectedSector != null}">in <strong th:text="${selectedSector.label}">Sector</strong></th:block>
+            </p>
+
+            <div class="row g-4" th:unless="${#lists.isEmpty(projects)}">
+                <div class="col-md-6 col-lg-4" th:each="project : ${projects}">
+                    <article th:replace="~{fragments/ui :: projectCard(${project})}"></article>
+                </div>
+            </div>
+
+            <div class="empty-state" th:if="${#lists.isEmpty(projects)}">
+                <h2 class="h4">No published projects in this sector yet.</h2>
+                <p>We may still have relevant references — ask for our full project list.</p>
+                <a class="btn btn-ink" th:href="@{/contact}">Contact us</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

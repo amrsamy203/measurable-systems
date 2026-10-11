@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title th:text="${service.name}">Service</title>
+    <meta name="description" th:content="${service.summary}">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section th:replace="~{fragments/ui :: pageHeader('Services', ${service.name}, ${service.summary}, ${service.image})}"></section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-7">
+                    <p class="lead-text" th:text="${service.description}">Description</p>
+
+                    <h2 class="h3 mt-5">Scope of work</h2>
+                    <ul class="check-list">
+                        <li th:each="item : ${service.scope}"><svg class="ico"><use href="#i-check"/></svg><span th:text="${item}">Scope</span></li>
+                    </ul>
+
+                    <h2 class="h3 mt-5">Systems we install</h2>
+                    <ul class="tag-list">
+                        <li th:each="system : ${service.systems}" th:text="${system}">System</li>
+                    </ul>
+                </div>
+                <aside class="col-lg-5">
+                    <div class="side-panel">
+                        <p class="side-metric"><strong th:text="${service.metricValue}">1,850 TR</strong><span th:text="${service.metricLabel}">label</span></p>
+                        <h2 class="h5">Codes &amp; standards</h2>
+                        <ul class="plain-list">
+                            <li th:each="standard : ${service.standards}" th:text="${standard}">Standard</li>
+                        </ul>
+                        <a class="btn btn-signal w-100 mt-3" th:href="@{/contact(service=${service.slug})}">Request a quote for this service</a>
+                    </div>
+                    <nav class="side-panel mt-3" aria-label="Other services">
+                        <h2 class="h5">Other services</h2>
+                        <ul class="plain-list plain-list-links">
+                            <li th:each="other : ${otherServices}"><a th:href="@{/services/{slug}(slug=${other.slug})}" th:text="${other.name}">Other</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint" th:unless="${#lists.isEmpty(projects)}">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow eyebrow-dark">Delivered by this team</p>
+                    <h2 th:text="${service.name} + ' on recent projects'">Projects</h2>
+                </div>
+                <a class="link-arrow" th:href="@{/projects}">All projects <svg class="ico"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" th:each="project : ${projects}">
+                    <article th:replace="~{fragments/ui :: projectCard(${project})}"></article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

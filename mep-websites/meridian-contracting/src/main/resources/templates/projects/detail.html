@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title th:text="${project.name}">Project</title>
+    <meta name="description" th:content="${project.summary}">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="case-hero" th:style="'--bg: url(' + @{/img/{f}(f=${project.image})} + ')'">
+        <div class="container">
+            <a class="back-link" th:href="@{/projects}">&larr; All projects</a>
+            <p class="eyebrow"><span th:text="${project.sector.label}">Sector</span> · <span th:text="${project.status.label}">Completed</span></p>
+            <h1 th:text="${project.name}">Project</h1>
+            <p class="lead" th:text="${project.summary}">Summary</p>
+        </div>
+    </section>
+
+    <section class="stat-strip">
+        <div class="container">
+            <dl class="row g-0">
+                <div class="col-md-4 stat" th:each="stat : ${project.stats}"><dt th:text="${stat.value}">1</dt><dd th:text="${stat.label}">label</dd></div>
+            </dl>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-8">
+                    <h2 class="h3">The challenge</h2>
+                    <p class="lead-text" th:text="${project.challenge}">Challenge</p>
+
+                    <h2 class="h3 mt-5">Our approach</h2>
+                    <ol class="approach-list">
+                        <li th:each="step : ${project.approach}" th:text="${step}">Step</li>
+                    </ol>
+
+                    <h2 class="h3 mt-5">Results</h2>
+                    <ul class="check-list">
+                        <li th:each="outcome : ${project.outcomes}"><svg class="ico"><use href="#i-check"/></svg><span th:text="${outcome}">Outcome</span></li>
+                    </ul>
+                </div>
+                <aside class="col-lg-4">
+                    <div class="side-panel facts">
+                        <h2 class="h5">Project facts</h2>
+                        <dl>
+                            <dt>Client</dt><dd th:text="${project.client}">Client</dd>
+                            <dt>Location</dt><dd th:text="${project.location}">Location</dd>
+                            <dt>Sector</dt><dd><a th:href="@{/projects(sector=${project.sector.slug})}" th:text="${project.sector.label}">Sector</a></dd>
+                            <dt>Built-up area</dt><dd th:text="${project.areaLabel()}">m²</dd>
+                            <dt th:text="${project.status.name() == 'COMPLETED'} ? 'Handed over' : 'Expected'">Year</dt><dd th:text="${project.year}">2024</dd>
+                        </dl>
+                        <h2 class="h5 mt-4">Disciplines</h2>
+                        <ul class="tag-list">
+                            <li th:each="name : ${disciplineNames}" th:text="${name}">Discipline</li>
+                        </ul>
+                        <a class="btn btn-signal w-100 mt-3" th:href="@{/contact(sector=${project.sector.slug})}">Discuss a similar project</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow eyebrow-dark">Related work</p>
+                    <h2>More projects like this one</h2>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" th:each="other : ${related}">
+                    <article th:replace="~{fragments/ui :: projectCard(${other})}"></article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

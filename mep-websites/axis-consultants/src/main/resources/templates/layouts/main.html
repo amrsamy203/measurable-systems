@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title layout:title-pattern="$CONTENT_TITLE — Axis Engineering Consultants">Axis Engineering Consultants</title>
+    <meta name="theme-color" content="#f3f0e8">
+    <th:block th:replace="~{common/fragments :: favicon('%232340e6', 'A')}"></th:block>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <th:block th:replace="~{common/fragments :: bootstrapCss}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/axis.css}">
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-cross" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+</svg>
+<a class="visually-hidden-focusable skip" href="#main">Skip to content</a>
+
+<div th:replace="~{common/fragments :: demoNotice}"></div>
+
+<header class="site-header" id="siteHeader">
+    <nav class="navbar navbar-expand-lg" aria-label="Primary">
+        <div class="container">
+            <a class="navbar-brand wordmark" th:href="@{/}" aria-label="Axis Engineering Consultants — home">
+                <svg class="wordmark-mark" aria-hidden="true"><use href="#i-cross"/></svg>
+                <span>Axis</span>
+                <small>Engineering<br>Consultants</small>
+            </a>
+            <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">Menu</button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/work}" th:classappend="${#strings.startsWith(currentPath, '/work')} ? 'active'">Work</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/expertise}" th:classappend="${currentPath == '/expertise'} ? 'active'">Expertise</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/studio}" th:classappend="${currentPath == '/studio'} ? 'active'">Studio</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/fee-estimator}" th:classappend="${currentPath == '/fee-estimator'} ? 'active'">Fee estimator</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-line" th:href="@{/contact}" th:classappend="${#strings.startsWith(currentPath, '/contact')} ? 'active'">
+                            Start a brief <svg class="ico"><use href="#i-arrow"/></svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main id="main" layout:fragment="content"></main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-statement" th:unless="${#strings.startsWith(currentPath, '/contact')}">
+            <p class="mono">Next project</p>
+            <a th:href="@{/contact}">Let&rsquo;s engineer the systems behind your next building <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="row g-4 footer-grid">
+            <div class="col-md-5">
+                <p class="mono footer-h">Studio</p>
+                <address>
+                    <span th:text="${company.address}">Address</span><br>
+                    <a th:href="${company.phoneHref()}" th:text="${company.phone}">Phone</a><br>
+                    <a th:href="${company.emailHref()}" th:text="${company.email}">Email</a><br>
+                    <span th:text="${company.hours}">Hours</span>
+                </address>
+            </div>
+            <div class="col-6 col-md-3">
+                <p class="mono footer-h">Index</p>
+                <ul class="footer-links">
+                    <li><a th:href="@{/work}">Work</a></li>
+                    <li><a th:href="@{/expertise}">Expertise</a></li>
+                    <li><a th:href="@{/studio}">Studio</a></li>
+                    <li><a th:href="@{/studio#accreditations}">Accreditations</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md-4">
+                <p class="mono footer-h">Tools</p>
+                <ul class="footer-links">
+                    <li><a th:href="@{/fee-estimator}">Design-fee estimator</a></li>
+                    <li><a th:href="@{/contact}">Submit a project brief</a></li>
+                    <li><a th:href="@{/expertise#sustainability}">Energy audits</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-base mono">
+            <span>&copy; <span th:text="${year}">2026</span> <span th:text="${company.name}">Axis</span> — fictional studio, est. <span th:text="${company.founded}">2013</span></span>
+            <a th:href="${company.portfolioUrl}" target="_blank" rel="noopener">Site by Amr Samy &#8599;</a>
+        </div>
+    </div>
+</footer>
+
+<th:block th:replace="~{common/fragments :: bootstrapJs}"></th:block>
+<script th:src="@{/js/axis.js}" defer></script>
+</body>
+</html>

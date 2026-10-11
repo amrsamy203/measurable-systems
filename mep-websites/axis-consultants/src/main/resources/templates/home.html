@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>MEP design, BIM &amp; sustainability</title>
+    <meta name="description" content="Axis is an independent MEP design consultancy in Cairo: mechanical, electrical, plumbing, fire, ELV and sustainability engineering, coordinated in BIM.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="hero">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-end">
+                <div class="col-lg-6">
+                    <p class="mono eyebrow">MEP design · BIM · Sustainability — Cairo</p>
+                    <h1 class="display">Building services, engineered <em>before</em> they&rsquo;re built.</h1>
+                    <p class="lead">Axis is an independent consultancy of engineers who design the mechanical, electrical and public-health systems behind hospitals, workplaces, resorts and data halls &mdash; and coordinate every duct and cable tray before anything reaches site.</p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <a class="btn btn-ink" th:href="@{/work}">See the work <svg class="ico"><use href="#i-arrow"/></svg></a>
+                        <a class="btn btn-line" th:href="@{/fee-estimator}">Estimate a design fee</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <figure class="figure-frame is-hero">
+                        <img th:src="@{/img/hero.jpg}" alt="A federated MEP model of a multi-storey building on a design workstation" fetchpriority="high">
+                        <figcaption class="mono">Fig. 01 — Federated MEP model, LOD 350. Every service coordinated before tender.</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <dl class="spec-strip">
+                <div><dt class="mono">Founded</dt><dd th:text="${company.founded}">2013</dd></div>
+                <div><dt class="mono">Buildings designed</dt><dd>190+</dd></div>
+                <div><dt class="mono">Floor area engineered</dt><dd>4.2M m²</dd></div>
+                <div><dt class="mono">Disciplines in-house</dt><dd th:text="${#arrays.length(disciplines)}">6</dd></div>
+            </dl>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <p class="mono eyebrow">01 — Selected work</p>
+                <h2>Projects where the engineering <em>is</em> the design.</h2>
+                <a class="link-arrow" th:href="@{/work}">All <span th:text="${caseCount}">6</span> case studies <svg class="ico"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="featured-grid">
+                <th:block th:each="study, it : ${featured}">
+                    <article class="featured-item" th:classappend="${it.first} ? 'is-lead'">
+                        <a th:href="@{/work/{slug}(slug=${study.slug})}" class="case-link">
+                            <th:block th:replace="~{fragments/ui :: visual(${study}, ${it.first})}"></th:block>
+                            <p class="case-meta mono">
+                                <span th:text="${'0' + it.count + ' — ' + study.sector.label}">01 — Sector</span>
+                                <span th:text="${study.location + ', ' + study.year}">Location, 2025</span>
+                            </p>
+                            <h3 class="case-title" th:text="${study.title}">Title</h3>
+                            <p class="case-headline" th:text="${study.headline}">Headline</p>
+                        </a>
+                    </article>
+                </th:block>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-rule">
+        <div class="container">
+            <div class="section-head">
+                <p class="mono eyebrow">02 — Disciplines</p>
+                <h2>Six disciplines, <em>one</em> coordinated model.</h2>
+            </div>
+            <div class="discipline-index">
+                <a class="discipline-cell" th:each="d : ${disciplines}" th:href="@{/expertise} + '#' + ${d.slug}">
+                    <span class="discipline-code" th:text="${d.code}">M</span>
+                    <span class="discipline-label" th:text="${d.label}">Mechanical</span>
+                    <svg class="ico"><use href="#i-arrow"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-rule">
+        <div class="container">
+            <div class="section-head">
+                <p class="mono eyebrow">03 — Process</p>
+                <h2>From first sketch to final handover.</h2>
+            </div>
+            <ol class="stage-line">
+                <li th:each="s : ${stages}">
+                    <span class="mono stage-no" th:text="${s.number}">01</span>
+                    <h3 th:text="${s.label}">Stage</h3>
+                    <p th:text="${s.description}">Description</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="blueprint-band">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-7">
+                    <p class="mono eyebrow">Tool</p>
+                    <h2>What should MEP design cost for your building?</h2>
+                    <p>Enter the floor area, the building type and the disciplines you need. Our estimator applies the same rates and area bands we use for real proposals and shows you how the fee is built up.</p>
+                </div>
+                <div class="col-lg-5 text-lg-end">
+                    <a class="btn btn-paper btn-lg" th:href="@{/fee-estimator}">Open the fee estimator <svg class="ico"><use href="#i-arrow"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <figure class="pull-quote">
+                <blockquote>
+                    &ldquo;Axis were the only consultant who modelled the energy cost of every option before asking us to choose. We built the cheaper building to run, not the cheaper building to tender.&rdquo;
+                </blockquote>
+                <figcaption class="mono">Development director — fictional healthcare group client</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="memberships">
+        <div class="container">
+            <p class="mono eyebrow">Memberships &amp; accreditations</p>
+            <ul class="membership-list">
+                <li>ASHRAE</li><li>USGBC · LEED</li><li>NFPA</li><li>CIBSE</li><li>buildingSMART</li><li>Egyptian Engineers Syndicate</li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

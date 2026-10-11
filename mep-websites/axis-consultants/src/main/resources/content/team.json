@@ -1,0 +1,8 @@
+[
+  { "name": "Dina Khalil", "role": "Founding partner · Mechanical", "credentials": "MSc, PE, LEED AP BD+C", "bio": "Twenty years designing hospitals and laboratories in Egypt and the Gulf. Leads the studio's healthcare work." },
+  { "name": "Omar Farouk", "role": "Partner · Electrical", "credentials": "BSc, CEng MIET", "bio": "Power-systems engineer behind the studio's data-centre and mission-critical commissions." },
+  { "name": "Salma Nabil", "role": "Associate · Public health", "credentials": "MSc Water Engineering", "bio": "Specialist in water treatment and reuse for remote hospitality and resort projects." },
+  { "name": "Karim Youssef", "role": "Associate · Fire & life safety", "credentials": "CFPS (NFPA)", "bio": "Writes the fire strategies and steers projects through Civil Defence approvals." },
+  { "name": "Hana Mostafa", "role": "BIM manager", "credentials": "Autodesk Certified Professional", "bio": "Runs the federated models, clash detection and the studio's BIM execution plans." },
+  { "name": "Youssef Adel", "role": "Sustainability lead", "credentials": "LEED AP O+M, EDGE Expert", "bio": "Energy modeller who makes sure performance targets survive value engineering." }
+]

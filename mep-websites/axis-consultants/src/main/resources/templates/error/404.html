@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Not found</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section thanks">
+        <div class="container">
+            <p class="mono eyebrow">Error 404</p>
+            <h1>This sheet is missing from the <em>drawing set</em>.</h1>
+            <p class="lead">The page may have moved, or the case study is no longer published.</p>
+            <div class="d-flex flex-wrap gap-3">
+                <a class="btn btn-ink" th:href="@{/work}">See all work</a>
+                <a class="btn btn-line" th:href="@{/}">Back to home</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

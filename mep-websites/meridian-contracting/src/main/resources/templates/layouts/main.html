@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title layout:title-pattern="$CONTENT_TITLE · Meridian MEP Contracting">Meridian MEP Contracting</title>
+    <meta name="theme-color" content="#0d1b2a">
+    <th:block th:replace="~{common/fragments :: favicon('%23ff6b1a', 'M')}"></th:block>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <th:block th:replace="~{common/fragments :: bootstrapCss}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/meridian.css}">
+</head>
+<body>
+<th:block th:replace="~{fragments/icons :: sprite}"></th:block>
+<a class="visually-hidden-focusable skip" href="#main">Skip to content</a>
+
+<div th:replace="~{common/fragments :: demoNotice}"></div>
+
+<div class="topbar d-none d-lg-block">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-4">
+            <a th:href="${company.phoneHref()}"><svg class="ico"><use href="#i-phone"/></svg><span th:text="${company.phone}">phone</span></a>
+            <a th:href="${company.emailHref()}"><svg class="ico"><use href="#i-mail"/></svg><span th:text="${company.email}">email</span></a>
+        </div>
+        <div class="d-flex gap-4 align-items-center">
+            <span><svg class="ico"><use href="#i-clock"/></svg><span th:text="${company.hours}">hours</span></span>
+            <span class="badge-iso">ISO 9001 · 14001 · 45001</span>
+        </div>
+    </div>
+</div>
+
+<header class="site-header sticky-top" id="siteHeader">
+    <nav class="navbar navbar-expand-lg" aria-label="Primary">
+        <div class="container">
+            <a class="navbar-brand brand" th:href="@{/}">
+                <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+                    <rect width="40" height="40" rx="4" fill="#ff6b1a"/>
+                    <path d="M9 30V11l11 11 11-11v19" fill="none" stroke="#0d1b2a" stroke-width="4" stroke-linejoin="round"/>
+                </svg>
+                <span class="brand-text"><strong>Meridian</strong><small>MEP Contracting</small></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="toggler-bar"></span><span class="toggler-bar"></span><span class="toggler-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}" th:classappend="${currentPath == '/'} ? 'active'">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}" th:classappend="${currentPath == '/about'} ? 'active'">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                           th:classappend="${#strings.startsWith(currentPath, '/services')} ? 'active'">Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/services}">All services</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/services/hvac}">HVAC &amp; Ventilation</a></li>
+                            <li><a class="dropdown-item" th:href="@{/services/electrical}">Electrical Power &amp; Lighting</a></li>
+                            <li><a class="dropdown-item" th:href="@{/services/plumbing}">Plumbing &amp; Drainage</a></li>
+                            <li><a class="dropdown-item" th:href="@{/services/fire-protection}">Fire Fighting &amp; Alarm</a></li>
+                            <li><a class="dropdown-item" th:href="@{/services/low-current}">Low Current &amp; ELV</a></li>
+                            <li><a class="dropdown-item" th:href="@{/services/bms}">BMS &amp; Energy</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/projects}" th:classappend="${#strings.startsWith(currentPath, '/projects')} ? 'active'">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}" th:classappend="${#strings.startsWith(currentPath, '/contact')} ? 'active'">Contact</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-signal" th:href="@{/contact}">Request a quote</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main id="main" layout:fragment="content"></main>
+
+<section class="cta-band" th:unless="${#strings.startsWith(currentPath, '/contact')}">
+    <div class="container d-lg-flex align-items-center justify-content-between gap-4">
+        <div>
+            <p class="eyebrow eyebrow-dark">Tendering now?</p>
+            <h2>Send drawings or a BOQ — get a priced proposal in 5 working days.</h2>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-3 mt-lg-0">
+            <a class="btn btn-ink btn-lg" th:href="@{/contact}">Request a quote</a>
+            <a class="btn btn-outline-ink btn-lg" th:href="${company.phoneHref()}" th:text="${company.phone}">Call</a>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="row g-4 g-lg-5">
+            <div class="col-lg-4">
+                <a class="brand brand-light mb-3" th:href="@{/}">
+                    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+                        <rect width="40" height="40" rx="4" fill="#ff6b1a"/>
+                        <path d="M9 30V11l11 11 11-11v19" fill="none" stroke="#0d1b2a" stroke-width="4" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="brand-text"><strong>Meridian</strong><small>MEP Contracting</small></span>
+                </a>
+                <p class="footer-lead">Design, supply, installation, testing and commissioning of building services across Egypt since <span th:text="${company.founded}">2009</span>.</p>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h3 class="footer-h">Company</h3>
+                <ul class="footer-links">
+                    <li><a th:href="@{/about}">About us</a></li>
+                    <li><a th:href="@{/projects}">Projects</a></li>
+                    <li><a th:href="@{/about#certifications}">Certifications</a></li>
+                    <li><a th:href="@{/contact}">Request a quote</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+                <h3 class="footer-h">Services</h3>
+                <ul class="footer-links">
+                    <li><a th:href="@{/services/hvac}">HVAC &amp; Ventilation</a></li>
+                    <li><a th:href="@{/services/electrical}">Electrical Power</a></li>
+                    <li><a th:href="@{/services/plumbing}">Plumbing &amp; Drainage</a></li>
+                    <li><a th:href="@{/services/fire-protection}">Fire Protection</a></li>
+                    <li><a th:href="@{/services/low-current}">Low Current &amp; ELV</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h3 class="footer-h">Head office</h3>
+                <address class="footer-address">
+                    <span th:text="${company.address}">Address</span><br>
+                    <a th:href="${company.phoneHref()}" th:text="${company.phone}">Phone</a><br>
+                    <a th:href="${company.emailHref()}" th:text="${company.email}">Email</a>
+                </address>
+            </div>
+        </div>
+        <div class="footer-base">
+            <span>&copy; <span th:text="${year}">2026</span> <span th:text="${company.name}">Meridian</span>. Fictional company for demonstration.</span>
+            <a th:href="${company.portfolioUrl}" target="_blank" rel="noopener">Website by Amr Samy</a>
+        </div>
+    </div>
+</footer>
+
+<a th:if="${company.whatsappHref() != null}" th:href="${company.whatsappHref()}" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.8-1.1-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>
+</a>
+
+<th:block th:replace="~{common/fragments :: bootstrapJs}"></th:block>
+<script th:src="@{/js/meridian.js}" defer></script>
+</body>
+</html>

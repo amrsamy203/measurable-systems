@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+
+<!-- Shared building blocks. Each site styles them through its own stylesheet. -->
+
+<th:block th:fragment="bootstrapCss">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</th:block>
+
+<th:block th:fragment="bootstrapJs">
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
+</th:block>
+
+<th:block th:fragment="favicon(color, letter)">
+    <link rel="icon" type="image/svg+xml"
+          th:href="|data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='${color}'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3E${letter}%3C/text%3E%3C/svg%3E|">
+</th:block>
+
+<div th:fragment="demoNotice" class="mep-demo-notice" role="note" th:if="${company.demo}">
+    <span>
+        Portfolio demo &mdash; <strong th:text="${company.name}">Company</strong> is a fictional company.
+        Built with Spring&nbsp;Boot &amp; Thymeleaf by
+    </span>
+    <a th:href="${company.portfolioUrl}" target="_blank" rel="noopener">Amr Samy &#8599;</a>
+</div>
+
+<!-- Use inside a form with th:object. -->
+<div th:fragment="fieldError(field)" th:if="${#fields.hasErrors(field)}"
+     class="invalid-feedback d-block" th:errors="*{__${field}__}">Error</div>
+
+<div th:fragment="errorSummary" th:if="${#fields.hasAnyErrors()}" class="alert alert-danger mep-error-summary" role="alert">
+    <strong>Please check the highlighted fields.</strong>
+    <ul class="mb-0 mt-1" th:if="${#fields.hasGlobalErrors()}">
+        <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">Error</li>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+# The three MEP demo websites on their own, without the rest of the portfolio stack.
+#   docker compose up --build
+#   Meridian  http://localhost:8091
+#   Axis      http://localhost:8092
+#   Thermiq   http://localhost:8093
+
+name: mep-websites
+
+x-site: &site
+  restart: unless-stopped
+  mem_limit: 384m
+  environment: &site-env
+    PORTFOLIO_URL: ${PORTFOLIO_URL:-https://amrsamy203.github.io}
+
+services:
+  meridian:
+    <<: *site
+    build: { context: ., args: { MODULE: meridian-contracting } }
+    image: mep-meridian:local
+    ports: ["8091:8080"]
+
+  axis:
+    <<: *site
+    build: { context: ., args: { MODULE: axis-consultants } }
+    image: mep-axis:local
+    ports: ["8092:8080"]
+
+  thermiq:
+    <<: *site
+    build: { context: ., args: { MODULE: thermiq-hvac } }
+    image: mep-thermiq:local
+    ports: ["8093:8080"]
+    environment:
+      <<: *site-env
+      THERMIQ_SLOT_CAPACITY: "3"
+    volumes:
+      - thermiq_data:/app/data
+
+volumes:
+  thermiq_data:

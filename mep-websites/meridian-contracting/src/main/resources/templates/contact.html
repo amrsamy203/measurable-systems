@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Request a quote</title>
+    <meta name="description" content="Send your drawings, BOQ or project brief and receive a priced MEP proposal within five working days.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section th:replace="~{fragments/ui :: pageHeader('Contact', 'Request a quotation.', 'Tell us about the project. A discipline lead — not a sales desk — will reply within one working day.', null)}"></section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-8">
+                    <form class="quote-form" th:action="@{/contact}" th:object="${quote}" method="post" novalidate>
+                        <div th:replace="~{common/fragments :: errorSummary}"></div>
+
+                        <fieldset>
+                            <legend>Your details</legend>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="fullName">Full name *</label>
+                                    <input class="form-control" type="text" th:field="*{fullName}" th:errorclass="is-invalid" autocomplete="name" required>
+                                    <div th:replace="~{common/fragments :: fieldError('fullName')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="company">Company</label>
+                                    <input class="form-control" type="text" th:field="*{company}" th:errorclass="is-invalid" autocomplete="organization">
+                                    <div th:replace="~{common/fragments :: fieldError('company')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="email">Email *</label>
+                                    <input class="form-control" type="email" th:field="*{email}" th:errorclass="is-invalid" autocomplete="email" required>
+                                    <div th:replace="~{common/fragments :: fieldError('email')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="phone">Phone *</label>
+                                    <input class="form-control" type="tel" th:field="*{phone}" th:errorclass="is-invalid" autocomplete="tel" placeholder="010 1234 5678" required>
+                                    <div th:replace="~{common/fragments :: fieldError('phone')}"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>The project</legend>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="sector">Sector *</label>
+                                    <select class="form-select" th:field="*{sector}" th:errorclass="is-invalid" required>
+                                        <option value="">Choose…</option>
+                                        <option th:each="s : ${sectors}" th:value="${s}" th:text="${s.label}">Sector</option>
+                                    </select>
+                                    <div th:replace="~{common/fragments :: fieldError('sector')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="stage">Stage *</label>
+                                    <select class="form-select" th:field="*{stage}" th:errorclass="is-invalid" required>
+                                        <option value="">Choose…</option>
+                                        <option th:each="s : ${stages}" th:value="${s}" th:text="${s.label}">Stage</option>
+                                    </select>
+                                    <div th:replace="~{common/fragments :: fieldError('stage')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="location">Location *</label>
+                                    <input class="form-control" type="text" th:field="*{location}" th:errorclass="is-invalid" placeholder="e.g. New Cairo" required>
+                                    <div th:replace="~{common/fragments :: fieldError('location')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="builtUpArea">Built-up area (m²)</label>
+                                    <input class="form-control" type="number" min="100" step="100" th:field="*{builtUpArea}" th:errorclass="is-invalid" placeholder="e.g. 12000">
+                                    <div th:replace="~{common/fragments :: fieldError('builtUpArea')}"></div>
+                                </div>
+                                <div class="col-12">
+                                    <span class="form-label d-block" id="disciplinesLabel">Disciplines required *</span>
+                                    <div class="discipline-grid" role="group" aria-labelledby="disciplinesLabel">
+                                        <label class="discipline-option" th:each="d : ${disciplineOptions}">
+                                            <input type="checkbox" th:field="*{disciplines}" th:value="${d.slug}">
+                                            <span><svg class="ico"><use th:href="${'#i-' + d.icon}"/></svg><th:block th:text="${d.name}">Discipline</th:block></span>
+                                        </label>
+                                    </div>
+                                    <div th:replace="~{common/fragments :: fieldError('disciplines')}"></div>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="message">Project description *</label>
+                                    <textarea class="form-control" rows="5" th:field="*{message}" th:errorclass="is-invalid"
+                                              placeholder="Building type, number of floors, available drawings or BOQ, target dates…" required></textarea>
+                                    <div th:replace="~{common/fragments :: fieldError('message')}"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="hp" aria-hidden="true">
+                            <label for="website">Leave this field empty</label>
+                            <input type="text" th:field="*{website}" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" th:field="*{consent}" th:errorclass="is-invalid">
+                            <label class="form-check-label" th:for="${#ids.prev('consent')}">I agree that Meridian may contact me about this request.</label>
+                            <div th:replace="~{common/fragments :: fieldError('consent')}"></div>
+                        </div>
+
+                        <button class="btn btn-signal btn-lg" type="submit">Send request</button>
+                    </form>
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="side-panel">
+                        <h2 class="h5">Talk to us directly</h2>
+                        <ul class="contact-list">
+                            <li><svg class="ico"><use href="#i-phone"/></svg><a th:href="${company.phoneHref()}" th:text="${company.phone}">Phone</a></li>
+                            <li><svg class="ico"><use href="#i-mail"/></svg><a th:href="${company.emailHref()}" th:text="${company.email}">Email</a></li>
+                            <li><svg class="ico"><use href="#i-clock"/></svg><span th:text="${company.hours}">Hours</span></li>
+                        </ul>
+                    </div>
+                    <div class="side-panel mt-3">
+                        <h2 class="h5">Offices</h2>
+                        <p class="mb-1"><strong>Head office — New Cairo</strong></p>
+                        <p class="text-body-secondary" th:text="${company.address}">Address</p>
+                        <p class="mb-1"><strong>Red Sea branch — Hurghada</strong></p>
+                        <p class="text-body-secondary mb-0">El Kawther District, Hurghada, Egypt</p>
+                    </div>
+                    <div class="side-panel mt-3">
+                        <h2 class="h5">What happens next</h2>
+                        <ol class="next-steps">
+                            <li>A discipline lead reviews your request within one working day.</li>
+                            <li>We arrange a site visit or a call to confirm scope.</li>
+                            <li>You receive a priced proposal within five working days.</li>
+                        </ol>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

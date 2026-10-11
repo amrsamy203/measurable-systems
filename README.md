@@ -37,6 +37,16 @@ This monorepo packages three production-style demos plus a personal site under o
 | **[DispatchGrid](projects/dispatchgrid)** | Outbound SMS/email/webhooks fail under rate limits | Outbox · token-bucket limits · retries/DLQ · fake providers · API keys | Spring Boot, PostgreSQL, RabbitMQ |
 | **[RelateAI](projects/relateai)** | “Add AI” without graph context or storage discipline | Topic/social graph insights · daily AI challenges · blob uploads | Spring Boot, PostgreSQL, OpenAI/mock |
 
+## Business websites (Spring Boot + Thymeleaf)
+
+[`mep-websites/`](mep-websites) holds three server-rendered websites for **fictional** engineering and MEP companies. Each has its own brand and layout, server-side form validation, a README and automated tests.
+
+| Website | Business type | Highlights |
+|---|---|---|
+| **[Meridian MEP Contracting](mep-websites/meridian-contracting)** | Turnkey MEP contractor | Sector-filtered project portfolio · service pages · validated RFQ form |
+| **[Axis Engineering Consultants](mep-websites/axis-consultants)** | MEP design & BIM consultancy | Editorial case studies · configurable design-fee estimator · project brief form |
+| **[Thermiq HVAC Services](mep-websites/thermiq-hvac)** | HVAC service company | Online booking with capacity rules (JPA + H2) · AC sizing calculator · plan pricing |
+
 **Portfolio site:** [portfolio-site/](portfolio-site) — Next.js “Measurable Systems” landing + case studies.
 
 ---
@@ -56,6 +66,9 @@ docker compose up --build -d
 | CaseFlow | http://localhost:3099/caseflow/ or :8081 | `admin@caseflow.demo` / `password` |
 | DispatchGrid | http://localhost:3099/dispatchgrid/ or :8082 | `admin@dispatchgrid.demo` / `password` |
 | RelateAI | http://localhost:3099/relateai/ or :8083 | `user1@relateai.demo` / `password` |
+| Meridian (website) | http://localhost:3099/mep/meridian/ or :8091/mep/meridian/ | — |
+| Axis (website) | http://localhost:3099/mep/axis/ or :8092/mep/axis/ | — |
+| Thermiq (website) | http://localhost:3099/mep/thermiq/ or :8093/mep/thermiq/ | — |
 
 Public HTTPS (ngrok): see [docs/freelancing/live-links.md](docs/freelancing/live-links.md) — run `./start-https-tunnels.sh` after compose is up.
 
@@ -73,6 +86,7 @@ docker compose down -v    # stop + wipe volumes
 │   ├── caseflow/          # Case routing + Throughput Console
 │   ├── dispatchgrid/      # Multi-provider dispatch orchestrator
 │   └── relateai/          # Graph insights + AI challenges
+├── mep-websites/          # Spring Boot + Thymeleaf business websites (Maven multi-module)
 ├── portfolio-site/        # Next.js personal brand site
 ├── docs/                  # Design docs, brand, freelancing playbooks
 ├── scripts/               # Local Windows helpers (JDK/Maven PATH)
@@ -116,6 +130,8 @@ Shared engineering practices across demos:
 .\scripts\run-relateai.ps1         # :8083
 .\scripts\run-portfolio.ps1        # :3000
 ```
+
+For the websites, see [mep-websites/README.md](mep-websites/README.md#run).
 
 ---
 

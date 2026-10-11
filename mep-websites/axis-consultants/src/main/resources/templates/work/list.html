@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Work</title>
+    <meta name="description" content="Case studies in MEP design: hospitals, civic buildings, data halls, resorts, laboratories and retrofits.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <header th:replace="~{fragments/ui :: pageIntro('Work', 'Case studies, <em>with the numbers</em>.', 'Every project below shows the problem we were given, how we engineered it and what it measurably changed.')}"></header>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="filters" aria-label="Filter case studies">
+                <div class="filter-row">
+                    <span class="mono filter-label">Sector</span>
+                    <a class="chip" th:href="@{/work(stage=${selectedStage?.slug})}"
+                       th:classappend="${selectedSector == null} ? 'is-on'">All</a>
+                    <a class="chip" th:each="s : ${sectors}" th:text="${s.label}"
+                       th:href="@{/work(sector=${s.slug},stage=${selectedStage?.slug})}"
+                       th:classappend="${selectedSector == s} ? 'is-on'">Sector</a>
+                </div>
+                <div class="filter-row">
+                    <span class="mono filter-label">Stage</span>
+                    <a class="chip" th:href="@{/work(sector=${selectedSector?.slug})}"
+                       th:classappend="${selectedStage == null} ? 'is-on'">All</a>
+                    <a class="chip" th:each="s : ${stages}" th:text="${s.number + ' ' + s.label}"
+                       th:href="@{/work(sector=${selectedSector?.slug},stage=${s.slug})}"
+                       th:classappend="${selectedStage == s} ? 'is-on'">Stage</a>
+                </div>
+            </div>
+
+            <p class="mono result-count">
+                Showing <strong th:text="${#lists.size(cases)}">6</strong> of <span th:text="${total}">6</span> case studies
+            </p>
+
+            <div class="case-grid" th:unless="${#lists.isEmpty(cases)}">
+                <th:block th:each="study : ${cases}">
+                    <article th:replace="~{fragments/ui :: caseCard(${study})}"></article>
+                </th:block>
+            </div>
+
+            <div class="empty-state" th:if="${#lists.isEmpty(cases)}">
+                <h2>Nothing published for that combination — yet.</h2>
+                <p>Most of our work is under NDA. Tell us about your project and we&rsquo;ll share relevant references directly.</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                    <a class="btn btn-line" th:href="@{/work}">Clear filters</a>
+                    <a class="btn btn-ink" th:href="@{/contact}">Start a brief</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

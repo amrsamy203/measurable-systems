@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Message sent</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section">
+        <div class="container">
+            <div class="confirm-card">
+                <span class="confirm-icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+                <h1>Thanks, <span th:text="${name}">there</span>!</h1>
+                <p class="lead">Your message is with our team. We reply within one working day.</p>
+                <p class="reference-chip">Reference <strong th:text="${reference}">TQ-MSG-2026-0001</strong></p>
+                <a class="btn btn-pill btn-coral mt-2" th:href="@{/}">Back to home</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

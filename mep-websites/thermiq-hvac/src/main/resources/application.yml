@@ -1,0 +1,127 @@
+spring:
+  application:
+    name: thermiq-hvac
+  messages:
+    basename: mep-messages
+  datasource:
+    # File-based H2 so bookings survive restarts. Point DATABASE_URL at PostgreSQL/MySQL in
+    # production (add the driver dependency) and supply credentials through the environment.
+    url: ${DATABASE_URL:jdbc:h2:file:${THERMIQ_DATA_DIR:./data}/thermiq}
+    username: ${DATABASE_USERNAME:sa}
+    password: ${DATABASE_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: false
+  web:
+    resources:
+      cache:
+        period: 7d
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /css/**,/js/**
+
+server:
+  port: ${PORT:8093}
+  # Behind the portfolio gateway: SERVER_SERVLET_CONTEXT_PATH=/mep/thermiq
+  forward-headers-strategy: framework
+  servlet:
+    session:
+      tracking-modes: cookie
+  tomcat:
+    use-relative-redirects: true
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+company:
+  name: Thermiq HVAC Services
+  tagline: AC installation, maintenance & repair across Greater Cairo
+  phone: "+20 100 555 0193"
+  email: hello@thermiq.example
+  whatsapp: "+20 100 555 0193"
+  address: 22 Road 9, Maadi, Cairo, Egypt
+  hours: Sat–Thu · 08:00–20:00
+  founded: 2017
+  portfolio-url: ${PORTFOLIO_URL:https://amrsamy203.github.io}
+
+thermiq:
+  booking:
+    slot-capacity: ${THERMIQ_SLOT_CAPACITY:3}
+    horizon-days: 30
+    closed-days: [FRIDAY]
+    min-lead-hours: 2
+    zone: Africa/Cairo
+  pricing:
+    yearly-discount: 0.15
+    plans:
+      - code: essential
+        name: Essential
+        tagline: For a home with one or two units
+        monthly-base: 149
+        extra-unit-monthly: 99
+        visits-per-year: 2
+        response-time: 48 hours
+        parts-discount: 0
+        highlighted: false
+        features:
+          - Two deep-clean visits a year
+          - Filter, coil and drain cleaning
+          - Refrigerant pressure check
+      - code: comfort
+        name: Comfort
+        tagline: Our most popular plan for families
+        monthly-base: 249
+        extra-unit-monthly: 149
+        visits-per-year: 4
+        response-time: 24 hours
+        parts-discount: 10
+        highlighted: true
+        features:
+          - Quarterly maintenance visits
+          - Free refrigerant top-up once a year
+          - Priority breakdown visits
+          - 10% off spare parts
+      - code: business
+        name: Business
+        tagline: Offices, clinics, shops and restaurants
+        monthly-base: 649
+        extra-unit-monthly: 199
+        visits-per-year: 12
+        response-time: 4 hours
+        parts-discount: 20
+        highlighted: false
+        features:
+          - Monthly preventive maintenance
+          - Service log for every unit
+          - 4-hour emergency response
+          - 20% off spare parts
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  thymeleaf:
+    cache: false
+  web:
+    resources:
+      cache:
+        period: 0
+      chain:
+        strategy:
+          content:
+            enabled: false

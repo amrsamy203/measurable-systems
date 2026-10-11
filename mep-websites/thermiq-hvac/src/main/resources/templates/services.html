@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Services &amp; prices</title>
+    <meta name="description" content="AC installation, cleaning, repair, refrigerant top-up and inspections with fixed starting prices.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="kicker">Services</span>
+            <h1>Clear services, clear prices</h1>
+            <p class="lead">Every visit starts with a fixed price. If a job needs parts, you approve the cost before we fit them.</p>
+        </div>
+    </section>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="service-rows">
+                <article class="service-row" th:each="s : ${services}" th:id="${s.slug}">
+                    <span class="service-icon"><svg><use th:href="${'#i-' + s.icon}"/></svg></span>
+                    <div class="flex-grow-1">
+                        <h2 th:text="${s.label}">Service</h2>
+                        <p th:text="${s.description}">Description</p>
+                    </div>
+                    <div class="service-row-cta">
+                        <span class="price-tag">from <strong>EGP <span th:text="${#numbers.formatInteger(s.fromPrice, 1, 'COMMA')}">0</span></strong></span>
+                        <a class="btn btn-pill btn-coral" th:href="@{/book(service=${s.slug})}">Book</a>
+                    </div>
+                </article>
+            </div>
+            <p class="small text-secondary mt-3">Prices per unit, including VAT, for standard wall-mounted splits. Cassette and ducted units are quoted on site.</p>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-lg-6">
+                    <span class="kicker">Capabilities</span>
+                    <h2>From one bedroom to a whole building</h2>
+                    <ul class="tick-list">
+                        <li><svg class="ico"><use href="#i-check"/></svg>Wall-mounted, floor-standing, cassette and concealed ducted units</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Inverter and VRF systems for shops, clinics and offices</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Copper piping, insulation and condensate drainage done properly</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>R410A and R32 refrigerant handling and recovery</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Planned maintenance with a service log per unit</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <img class="rounded-media" th:src="@{/img/rooftop.jpg}" alt="Neatly installed outdoor AC units with insulated copper piping" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <span class="kicker">Who we work for</span>
+                <h2>Industries we serve</h2>
+            </div>
+            <div class="row g-3">
+                <div class="col-6 col-lg-4"><div class="industry"><h3>Homes &amp; villas</h3><p>Installation, cleaning and the occasional 2 a.m. emergency.</p></div></div>
+                <div class="col-6 col-lg-4"><div class="industry"><h3>Offices</h3><p>Cassette and VRF maintenance outside working hours.</p></div></div>
+                <div class="col-6 col-lg-4"><div class="industry"><h3>Clinics &amp; pharmacies</h3><p>Reliable cooling where temperature really matters.</p></div></div>
+                <div class="col-6 col-lg-4"><div class="industry"><h3>Restaurants &amp; caf&eacute;s</h3><p>Grease-resistant cleaning and kitchen-area units.</p></div></div>
+                <div class="col-6 col-lg-4"><div class="industry"><h3>Retail</h3><p>Showroom comfort without noisy indoor units.</p></div></div>
+                <div class="col-6 col-lg-4"><div class="industry"><h3>Schools &amp; nurseries</h3><p>Summer-break overhauls so classes start cool.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container text-center">
+            <h2>Not sure which service you need?</h2>
+            <p>Book an inspection &mdash; the fee is deducted if you go ahead with the work.</p>
+            <a class="btn btn-pill btn-coral btn-lg" th:href="@{/book(service='inspection')}">Book an inspection</a>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

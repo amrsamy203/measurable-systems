@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Maintenance plans</title>
+    <meta name="description" content="AC maintenance plans for homes and businesses, from EGP 149 a month. Save with yearly billing.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="page-hero text-center">
+        <div class="container">
+            <span class="kicker">Maintenance plans</span>
+            <h1>Pick a plan, forget the breakdowns</h1>
+            <p class="lead mx-auto">Prices include one AC unit. Add more units below and the prices update.</p>
+
+            <form class="plan-controls" th:action="@{/plans}" method="get">
+                <div class="billing-toggle" role="group" aria-label="Billing period">
+                    <a th:href="@{/plans(billing='monthly',units=${units})}" th:classappend="${billing.name() == 'MONTHLY'} ? 'is-on'"
+                       th:attr="aria-current=${billing.name() == 'MONTHLY'} ? 'true' : null">Monthly</a>
+                    <a th:href="@{/plans(billing='yearly',units=${units})}" th:classappend="${billing.name() == 'YEARLY'} ? 'is-on'"
+                       th:attr="aria-current=${billing.name() == 'YEARLY'} ? 'true' : null">Yearly <span class="save-pill">save <span th:text="${discount}">15</span>%</span></a>
+                </div>
+                <input type="hidden" name="billing" th:value="${billing.param}">
+                <label class="units-field">
+                    <span>AC units</span>
+                    <input class="form-control" type="number" name="units" th:value="${units}" th:min="${minUnits}" th:max="${maxUnits}" inputmode="numeric">
+                </label>
+                <button class="btn btn-pill btn-soft" type="submit">Update prices</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-4" th:each="q : ${quotes}">
+                    <article class="plan-card" th:classappend="${q.plan.highlighted} ? 'is-featured'" th:id="${q.plan.code}">
+                        <span class="plan-flag" th:if="${q.plan.highlighted}">Most popular</span>
+                        <h2 th:text="${q.plan.name}">Plan</h2>
+                        <p class="plan-tagline" th:text="${q.plan.tagline}">Tagline</p>
+                        <p class="plan-price">EGP <strong th:text="${#numbers.formatInteger(q.perMonth, 1, 'COMMA')}">0</strong><small>/month</small></p>
+                        <p class="plan-billed" th:if="${q.billing.name() == 'YEARLY'}">
+                            Billed EGP <span th:text="${#numbers.formatInteger(q.billed, 1, 'COMMA')}">0</span> a year
+                            &middot; you save EGP <span th:text="${#numbers.formatInteger(q.saving, 1, 'COMMA')}">0</span>
+                        </p>
+                        <p class="plan-billed" th:unless="${q.billing.name() == 'YEARLY'}">Billed monthly, cancel any time</p>
+                        <p class="plan-units">For <strong th:text="${q.units}">1</strong> <span th:text="${q.units == 1} ? 'unit' : 'units'">unit</span></p>
+                        <ul class="plan-features">
+                            <li><svg class="ico"><use href="#i-check"/></svg><span th:text="${q.plan.visitsPerYear + ' visits a year'}">Visits</span></li>
+                            <li><svg class="ico"><use href="#i-check"/></svg><span th:text="${q.plan.responseTime + ' breakdown response'}">Response</span></li>
+                            <li th:each="f : ${q.plan.features}"><svg class="ico"><use href="#i-check"/></svg><span th:text="${f}">Feature</span></li>
+                        </ul>
+                        <a class="btn btn-pill w-100" th:classappend="${q.plan.highlighted} ? 'btn-coral' : 'btn-soft'"
+                           th:href="@{/book(service='inspection',units=${q.units > 10 ? 10 : q.units})}">Start with a free inspection</a>
+                    </article>
+                </div>
+            </div>
+            <p class="text-center small text-secondary mt-4">Plans start after a first inspection visit. Prices in EGP including VAT. Business plans with more than 20 units are quoted individually.</p>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-7">
+                    <span class="kicker">For businesses</span>
+                    <h2>Running more than ten units?</h2>
+                    <p class="text-secondary">We set up contracts for offices, clinic groups and restaurant chains with one invoice, a service log per unit and a named account manager.</p>
+                </div>
+                <div class="col-lg-5 text-lg-end">
+                    <a class="btn btn-pill btn-coral btn-lg" th:href="@{/contact}">Ask for a contract quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

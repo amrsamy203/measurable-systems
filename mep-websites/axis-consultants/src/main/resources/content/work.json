@@ -1,0 +1,168 @@
+[
+  {
+    "slug": "new-capital-civic-headquarters",
+    "title": "New Capital Civic Headquarters",
+    "client": "Fictional public-sector client",
+    "location": "New Administrative Capital",
+    "year": 2025,
+    "sector": "WORKPLACE",
+    "stages": ["CONCEPT", "SCHEMATIC", "DETAILED", "TENDER", "SUPERVISION"],
+    "disciplines": ["MECHANICAL", "ELECTRICAL", "PUBLIC_HEALTH", "FIRE", "ELV", "SUSTAINABILITY"],
+    "areaSqm": 46000,
+    "image": "tower.jpg",
+    "caption": "Fig. — Precast fin façade; plant is hidden in the crown and a single basement spine.",
+    "featured": true,
+    "headline": "A six-storey civic building with no visible plant and 31% less cooling energy than the code baseline.",
+    "brief": "The architect's precast-fin façade left no room for louvres, and the client wanted a roofscape without visible plant. We had to fit a full district-cooling interface, standby generation and a 46,000 m² air-conditioning system into a building whose elevations could not show a single grille.",
+    "approach": [
+      "Moved all air-handling plant into a continuous crown level behind the fins, using the fin depth itself as the intake plenum.",
+      "Selected dedicated outdoor-air units with enthalpy wheels and chilled beams for the office floors, halving duct sizes and recovering ceiling height.",
+      "Ran an hourly energy model (EnergyPlus) at every stage so façade and plant decisions were tested against one baseline.",
+      "Issued a federated LOD 350 model to the contractor with zero hard clashes at tender."
+    ],
+    "outcomes": [
+      { "value": "31%", "label": "less cooling energy than the ASHRAE 90.1 baseline" },
+      { "value": "0", "label": "hard clashes in the tender model" },
+      { "value": "+240 mm", "label": "ceiling height recovered on office floors" }
+    ],
+    "tools": ["Revit MEP", "Navisworks", "EnergyPlus", "ETAP", "DIALux evo"]
+  },
+  {
+    "slug": "al-rawda-specialist-hospital",
+    "title": "Al Rawda Specialist Hospital",
+    "client": "Fictional private healthcare group",
+    "location": "Sheikh Zayed City",
+    "year": 2024,
+    "sector": "HEALTHCARE",
+    "stages": ["SCHEMATIC", "DETAILED", "TENDER", "SUPERVISION"],
+    "disciplines": ["MECHANICAL", "ELECTRICAL", "PUBLIC_HEALTH", "FIRE", "ELV"],
+    "areaSqm": 38500,
+    "image": "hospital.jpg",
+    "caption": "Fig. — Main atrium; smoke control and daylight were designed together.",
+    "featured": true,
+    "headline": "A 180-bed hospital where twelve operating theatres share one resilient, fully redundant plant.",
+    "brief": "The operator needed a phased hospital that could open its outpatient wing a year before the theatres, without temporary plant, and meet FGI pressure-cascade requirements from day one.",
+    "approach": [
+      "Split the central plant into N+1 modules sized so the outpatient phase ran on two of five chillers at a good part-load efficiency.",
+      "Designed theatre and isolation-room airflow with laminar-flow canopies and monitored pressure cascades on the BMS.",
+      "Engineered medical gas, nurse call and IT networks as one coordinated ELV package to simplify procurement.",
+      "Wrote a staged commissioning plan so each wing could be handed over without disturbing live clinical areas."
+    ],
+    "outcomes": [
+      { "value": "12", "label": "operating theatres to ISO 14644 Class 7" },
+      { "value": "N+1", "label": "redundancy on chillers, AHUs and generators" },
+      { "value": "1 year", "label": "early opening of the outpatient wing" }
+    ],
+    "tools": ["Revit MEP", "Carrier HAP", "ETAP", "Navisworks"]
+  },
+  {
+    "slug": "sokhna-logistics-data-hall",
+    "title": "Sokhna Logistics Data Hall",
+    "client": "Fictional port operator",
+    "location": "Ain Sokhna",
+    "year": 2026,
+    "sector": "MISSION_CRITICAL",
+    "stages": ["CONCEPT", "SCHEMATIC", "DETAILED"],
+    "disciplines": ["MECHANICAL", "ELECTRICAL", "FIRE", "ELV"],
+    "areaSqm": 6200,
+    "image": "bim.jpg",
+    "caption": "Fig. — Coordinated services zone above the white space, LOD 350.",
+    "featured": true,
+    "headline": "A 1.2 MW edge data hall designed for a coastal climate, with free cooling for a third of the year.",
+    "brief": "A port operator needed resilient on-site compute for terminal automation. Salt-laden air, high humidity and limited utility capacity ruled out a copy-paste data-centre design.",
+    "approach": [
+      "Compared four cooling topologies on lifetime cost; selected indirect evaporative units with DX trim to keep salt air out of the white space.",
+      "Designed a 2N electrical path with lithium-ion UPS, sized against the utility's actual available capacity.",
+      "Specified inert-gas suppression and VESDA early-warning detection zoned to the containment aisles.",
+      "Coordinated cable trays, busways and ductwork in a single model with the structural steel."
+    ],
+    "outcomes": [
+      { "value": "1.28", "label": "design PUE at full load" },
+      { "value": "2N", "label": "electrical topology, Tier III-aligned" },
+      { "value": "34%", "label": "of hours on free cooling" }
+    ],
+    "tools": ["Revit MEP", "Navisworks", "6SigmaRoom CFD", "ETAP"]
+  },
+  {
+    "slug": "zamalek-office-retrofit",
+    "title": "Zamalek Office Retrofit & Energy Audit",
+    "client": "Fictional family office",
+    "location": "Zamalek, Cairo",
+    "year": 2024,
+    "sector": "WORKPLACE",
+    "stages": ["CONCEPT", "DETAILED", "SUPERVISION"],
+    "disciplines": ["MECHANICAL", "ELECTRICAL", "SUSTAINABILITY"],
+    "areaSqm": 4800,
+    "image": "desk.jpg",
+    "caption": "Fig. — Thermal survey overlaid on the existing services drawings.",
+    "featured": false,
+    "headline": "A 1970s office building brought to modern comfort standards while occupied, with a 3.4-year payback.",
+    "brief": "Split units on every balcony, tripping breakers in summer and an electricity bill that kept rising. The owner wanted a retrofit that tenants would barely notice.",
+    "approach": [
+      "Measured before designing: a two-week logging campaign and thermal imaging of every floor.",
+      "Replaced 140 split units with a VRF system routed through the existing light wells.",
+      "Added LED lighting with daylight dimming and sub-metering per tenant.",
+      "Phased the works floor by floor over weekends."
+    ],
+    "outcomes": [
+      { "value": "42%", "label": "lower annual electricity use" },
+      { "value": "3.4 yrs", "label": "simple payback" },
+      { "value": "0", "label": "working days lost by tenants" }
+    ],
+    "tools": ["IES VE", "FLIR thermal survey", "AutoCAD MEP", "DIALux evo"]
+  },
+  {
+    "slug": "sahl-hasheesh-beach-resort",
+    "title": "Sahl Hasheesh Beach Resort",
+    "client": "Fictional hospitality developer",
+    "location": "Hurghada",
+    "year": 2023,
+    "sector": "HOSPITALITY",
+    "stages": ["SCHEMATIC", "DETAILED", "TENDER"],
+    "disciplines": ["MECHANICAL", "ELECTRICAL", "PUBLIC_HEALTH", "FIRE"],
+    "areaSqm": 52000,
+    "image": null,
+    "caption": null,
+    "featured": false,
+    "headline": "A 410-key resort where every drop of water is treated, reused or desalinated on site.",
+    "brief": "No reliable municipal water and a remote site: the resort had to produce, treat and reuse its own water while keeping guest-facing areas silent and invisible.",
+    "approach": [
+      "Designed a reverse-osmosis plant with energy recovery and a sewage treatment plant feeding irrigation.",
+      "Used heat recovery from chillers for domestic hot water across all guest blocks.",
+      "Laid out the services corridors so plant noise never reached guest rooms (NR 25)."
+    ],
+    "outcomes": [
+      { "value": "100%", "label": "of irrigation from treated wastewater" },
+      { "value": "60%", "label": "of hot water from recovered heat" },
+      { "value": "NR 25", "label": "in guest rooms" }
+    ],
+    "tools": ["Revit MEP", "Carrier HAP", "Pipe Flo"]
+  },
+  {
+    "slug": "nile-university-research-labs",
+    "title": "Nile University Research Labs",
+    "client": "Fictional private university",
+    "location": "Sheikh Zayed City",
+    "year": 2022,
+    "sector": "EDUCATION",
+    "stages": ["CONCEPT", "SCHEMATIC", "DETAILED", "TENDER"],
+    "disciplines": ["MECHANICAL", "ELECTRICAL", "PUBLIC_HEALTH", "FIRE", "ELV", "SUSTAINABILITY"],
+    "areaSqm": 14500,
+    "image": null,
+    "caption": null,
+    "featured": false,
+    "headline": "Wet and dry laboratories with demand-controlled ventilation, designed to LEED Gold.",
+    "brief": "Labs are the most energy-hungry buildings on a campus. The university wanted safe, flexible lab space without a lab-sized energy bill.",
+    "approach": [
+      "Applied demand-controlled ventilation tied to air-quality sensing in each lab.",
+      "Specified high-plume exhaust fans and run-around heat recovery.",
+      "Designed modular service spines so labs can be reconfigured without new risers."
+    ],
+    "outcomes": [
+      { "value": "LEED Gold", "label": "design-stage target" },
+      { "value": "6 → 4", "label": "air changes per hour when unoccupied" },
+      { "value": "28%", "label": "lower HVAC energy than a constant-volume design" }
+    ],
+    "tools": ["Revit MEP", "IES VE", "ETAP"]
+  }
+]

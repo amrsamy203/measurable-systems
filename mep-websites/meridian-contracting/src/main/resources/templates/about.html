@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>About us</title>
+    <meta name="description" content="Meridian MEP Contracting: company profile, history, leadership, certifications and HSE performance.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section th:replace="~{fragments/ui :: pageHeader('Company profile', 'Contractors who think like engineers.', 'Founded in 2009 by three MEP engineers who were tired of handing over buildings that only worked on paper.', 'team.jpg')}"></section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-6">
+                    <p class="eyebrow eyebrow-dark">Our story</p>
+                    <h2>From a 12-person fit-out team to a Grade 1 contractor.</h2>
+                    <p>Meridian started with small office fit-outs in Heliopolis. Clients kept us for one reason: the systems we installed worked when the building opened. That reputation brought hospitals, then towers, then resorts on the Red Sea.</p>
+                    <p>Today we are a turnkey electromechanical contractor with 650 engineers and technicians, an in-house design office and a prefabrication workshop — but the rule is the same as in 2009: a building is not finished until its systems are commissioned and its operators are trained.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-sm-6"><div class="value-card"><svg class="ico-lg"><use href="#i-shield"/></svg><h3>Safety first</h3><p>Every shift starts with a toolbox talk. Stop-work authority belongs to everyone on site.</p></div></div>
+                        <div class="col-sm-6"><div class="value-card"><svg class="ico-lg"><use href="#i-ruler"/></svg><h3>Engineered, not improvised</h3><p>Shop drawings and calculations approved before a single pipe is cut.</p></div></div>
+                        <div class="col-sm-6"><div class="value-card"><svg class="ico-lg"><use href="#i-gauge"/></svg><h3>Measured performance</h3><p>We commission against design conditions and hand over the numbers.</p></div></div>
+                        <div class="col-sm-6"><div class="value-card"><svg class="ico-lg"><use href="#i-users"/></svg><h3>One accountable team</h3><p>One contract, one programme, one project manager for all disciplines.</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-6">
+                    <p class="eyebrow">Mission</p>
+                    <p class="statement">Deliver building services that perform on handover day and keep performing — safely, on programme and within budget.</p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="eyebrow">Vision</p>
+                    <p class="statement">To be the MEP partner Egypt's developers call first for buildings where failure is not an option.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <p class="eyebrow eyebrow-dark">Milestones</p>
+            <h2 class="mb-4">Sixteen years, one building at a time.</h2>
+            <ol class="timeline">
+                <li><span>2009</span><p>Founded in Heliopolis as an office fit-out MEP contractor.</p></li>
+                <li><span>2013</span><p>First hospital project; classified as a Grade 1 electromechanical contractor.</p></li>
+                <li><span>2016</span><p>Licensed fire-protection division launched with Civil Defence approvals.</p></li>
+                <li><span>2019</span><p>Opened the 10th of Ramadan prefabrication workshop; ISO 45001 certification.</p></li>
+                <li><span>2022</span><p>Red Sea branch opened to serve hospitality projects on the coast.</p></li>
+                <li><span>2025</span><p>140th project handed over; first Tier III data centre under construction.</p></li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <p class="eyebrow eyebrow-dark">Leadership</p>
+            <h2 class="mb-4">The people who sign the commissioning reports.</h2>
+            <div class="row g-4">
+                <div class="col-sm-6 col-lg-3"><div class="person"><span class="avatar">KH</span><h3>Karim Hassan</h3><p>Managing Director · Mechanical engineer, 24 years in MEP contracting</p></div></div>
+                <div class="col-sm-6 col-lg-3"><div class="person"><span class="avatar">NE</span><h3>Nadia El-Sherif</h3><p>Technical Director · Electrical engineer, chartered, power &amp; ELV</p></div></div>
+                <div class="col-sm-6 col-lg-3"><div class="person"><span class="avatar">OF</span><h3>Omar Fawzy</h3><p>Operations Director · Leads 22 active sites and the prefab workshop</p></div></div>
+                <div class="col-sm-6 col-lg-3"><div class="person"><span class="avatar">SM</span><h3>Salma Mourad</h3><p>HSE Manager · NEBOSH certified, 0.18 LTIFR group-wide</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="certifications">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-5">
+                    <p class="eyebrow eyebrow-dark">Certifications &amp; memberships</p>
+                    <h2>Audited every year — by people who don't work for us.</h2>
+                    <p class="text-body-secondary">Our management systems are certified by an accredited third party, and our fire-protection division holds the approvals required to submit and test life-safety systems.</p>
+                </div>
+                <div class="col-lg-7">
+                    <ul class="cert-grid">
+                        <li><svg class="ico-lg"><use href="#i-award"/></svg><strong>ISO 9001:2015</strong><span>Quality management</span></li>
+                        <li><svg class="ico-lg"><use href="#i-award"/></svg><strong>ISO 14001:2015</strong><span>Environmental management</span></li>
+                        <li><svg class="ico-lg"><use href="#i-award"/></svg><strong>ISO 45001:2018</strong><span>Occupational health &amp; safety</span></li>
+                        <li><svg class="ico-lg"><use href="#i-shield"/></svg><strong>Grade 1 contractor</strong><span>Electromechanical works classification</span></li>
+                        <li><svg class="ico-lg"><use href="#i-flame"/></svg><strong>Civil Defence approved</strong><span>Fire-fighting &amp; fire-alarm installer</span></li>
+                        <li><svg class="ico-lg"><use href="#i-cube"/></svg><strong>BIM Level 2</strong><span>Coordinated delivery to LOD 400</span></li>
+                    </ul>
+                </div>
+            </div>
+            <dl class="hse-band">
+                <div><dt>0.18</dt><dd>Lost-time injury frequency rate</dd></div>
+                <div><dt>4.1M</dt><dd>Safe work hours since last LTI</dd></div>
+                <div><dt>100%</dt><dd>Site staff with HSE induction</dd></div>
+                <div><dt th:text="${projectCount}">8</dt><dd>Case studies published on this site</dd></div>
+            </dl>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

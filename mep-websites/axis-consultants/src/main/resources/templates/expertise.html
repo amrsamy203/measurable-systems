@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Expertise</title>
+    <meta name="description" content="Mechanical, electrical, public health, fire, ELV and sustainability engineering — scope, tools and standards.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <header th:replace="~{fragments/ui :: pageIntro('Expertise', 'Six disciplines under <em>one roof</em>.', 'Because every discipline sits in the same studio and the same model, coordination happens at our desks — not on your site.')}"></header>
+
+    <section class="section pt-0">
+        <div class="container">
+            <nav class="discipline-jump mono" aria-label="Disciplines">
+                <a th:each="p : ${profiles}" th:href="'#' + ${p.discipline.slug}"
+                   th:text="${p.discipline.code + ' ' + p.discipline.label}">M Mechanical</a>
+            </nav>
+
+            <section class="discipline-block" th:each="p, it : ${profiles}" th:id="${p.discipline.slug}">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <span class="discipline-code big" th:text="${p.discipline.code}">M</span>
+                        <h2 th:text="${p.discipline.label}">Discipline</h2>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="discipline-summary" th:text="${p.summary}">Summary</p>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <p class="mono eyebrow">Scope</p>
+                                <ul class="tick-list">
+                                    <li th:each="s : ${p.scope}"><svg class="ico"><use href="#i-check"/></svg><span th:text="${s}">Item</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mono eyebrow">Tools</p>
+                                <p class="tags"><span class="tag" th:each="t : ${p.tools}" th:text="${t}">Tool</span></p>
+                                <p class="mono eyebrow mt-4">Standards</p>
+                                <p class="standards mono" th:text="${#strings.listJoin(p.standards, ' · ')}">Standards</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="section section-rule">
+        <div class="container">
+            <div class="section-head">
+                <p class="mono eyebrow">How we work</p>
+                <h2>Appoint us for one stage or all five.</h2>
+            </div>
+            <ol class="stage-line">
+                <li th:each="s : ${stages}">
+                    <span class="mono stage-no" th:text="${s.number}">01</span>
+                    <h3 th:text="${s.label}">Stage</h3>
+                    <p th:text="${s.description}">Description</p>
+                    <a class="link-arrow small" th:href="@{/work(stage=${s.slug})}">Projects <svg class="ico"><use href="#i-arrow"/></svg></a>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="blueprint-band">
+        <div class="container d-lg-flex align-items-center justify-content-between gap-4">
+            <h2 class="mb-3 mb-lg-0">Need a budget figure for design fees?</h2>
+            <a class="btn btn-paper btn-lg" th:href="@{/fee-estimator}">Use the estimator <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

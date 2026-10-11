@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Something went wrong</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section thanks">
+        <div class="container">
+            <p class="mono eyebrow">Error <span th:text="${status}">500</span></p>
+            <h1>Something went wrong on our side.</h1>
+            <p class="lead">Please try again, or email us at <a th:href="${company.emailHref()}" th:text="${company.email}">email</a>.</p>
+            <a class="btn btn-ink" th:href="@{/}">Back to home</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

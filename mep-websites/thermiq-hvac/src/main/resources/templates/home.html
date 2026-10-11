@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>AC installation, maintenance &amp; repair in Cairo</title>
+    <meta name="description" content="Book AC installation, cleaning and repair online across Greater Cairo. Fixed prices, same-day slots and maintenance plans from EGP 149/month.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="hero">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-lg-6">
+                    <p class="rating"><span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span> 4.9 from 2,300+ reviews</p>
+                    <h1>Cool homes.<br><span class="accent">Calm summers.</span></h1>
+                    <p class="lead">Certified technicians for AC installation, cleaning and repair across Greater Cairo. Fixed prices before we start, and a 90-day guarantee on every job.</p>
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+                        <a class="btn btn-pill btn-coral btn-lg" th:href="@{/book}">Book a visit <svg class="ico"><use href="#i-arrow"/></svg></a>
+                        <a class="btn btn-pill btn-soft btn-lg" th:href="@{/calculator}">Which AC size do I need?</a>
+                    </div>
+                    <ul class="hero-points">
+                        <li><svg class="ico"><use href="#i-check"/></svg>Same-day slots</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Fixed prices</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>All major brands</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-media">
+                        <img th:src="@{/img/hero.jpg}" alt="A Thermiq technician servicing a wall-mounted split AC unit" fetchpriority="high">
+                        <a class="slot-badge" th:if="${nextSlot != null}"
+                           th:href="@{/book(date=${nextSlot.date},slot=${nextSlot.slot})}">
+                            <span class="slot-dot" aria-hidden="true"></span>
+                            <span>
+                                <small>Next free slot</small>
+                                <strong>
+                                    <th:block th:text="${nextSlot.today} ? 'Today' : ${#temporals.format(nextSlot.date, 'EEE d MMM')}">Today</th:block>,
+                                    <th:block th:text="${nextSlot.slot.label}">15:00 – 18:00</th:block>
+                                </strong>
+                            </span>
+                        </a>
+                        <div class="guarantee-badge"><svg class="ico"><use href="#i-shield"/></svg><span><strong>90-day</strong> workmanship guarantee</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <span class="kicker">What we do</span>
+                <h2>Everything your AC needs, one call away</h2>
+            </div>
+            <div class="row g-3 g-lg-4">
+                <div class="col-sm-6 col-lg-4" th:each="s : ${services}">
+                    <a class="service-card" th:href="@{/book(service=${s.slug})}">
+                        <span class="service-icon"><svg><use th:href="${'#i-' + s.icon}"/></svg></span>
+                        <h3 th:text="${s.label}">Service</h3>
+                        <p th:text="${s.description}">Description</p>
+                        <span class="price-tag">from <strong>EGP <span th:text="${#numbers.formatInteger(s.fromPrice, 1, 'COMMA')}">0</span></strong></span>
+                        <span class="card-link">Book this <svg class="ico"><use href="#i-arrow"/></svg></span>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <a class="service-card is-dark" th:href="@{/plans}">
+                        <span class="service-icon"><svg><use href="#i-shield"/></svg></span>
+                        <h3>Maintenance plans</h3>
+                        <p>Scheduled visits, priority repairs and discounted parts &mdash; for homes and businesses.</p>
+                        <span class="price-tag">from <strong>EGP 149</strong>/month</span>
+                        <span class="card-link">Compare plans <svg class="ico"><use href="#i-arrow"/></svg></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <div class="section-title">
+                <span class="kicker">How it works</span>
+                <h2>Booked in two minutes. Fixed in one visit.</h2>
+            </div>
+            <ol class="steps">
+                <li><span class="step-badge">1</span><h3>Pick a slot online</h3><p>Choose the service, your area and a three-hour window that suits you.</p></li>
+                <li><span class="step-badge">2</span><h3>We confirm by phone</h3><p>A coordinator calls to confirm the details and the fixed price.</p></li>
+                <li><span class="step-badge">3</span><h3>Technician arrives</h3><p>Uniformed, insured and carrying common parts &mdash; you get a WhatsApp when they&rsquo;re on the way.</p></li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <span class="kicker">Maintenance plans</span>
+                <h2>Never think about your AC again</h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4" th:each="q : ${quotes}">
+                    <article class="plan-mini" th:classappend="${q.plan.highlighted} ? 'is-featured'">
+                        <span class="plan-flag" th:if="${q.plan.highlighted}">Most popular</span>
+                        <h3 th:text="${q.plan.name}">Plan</h3>
+                        <p class="plan-price">EGP <strong th:text="${#numbers.formatInteger(q.perMonth, 1, 'COMMA')}">0</strong><small>/month</small></p>
+                        <p class="plan-sub"><span th:text="${q.plan.visitsPerYear}">2</span> visits a year &middot; <span th:text="${q.plan.responseTime}">48h</span> response</p>
+                    </article>
+                </div>
+            </div>
+            <p class="text-center mt-4"><a class="btn btn-pill btn-soft" th:href="@{/plans}">Compare all plans</a></p>
+        </div>
+    </section>
+
+    <section class="calc-band">
+        <div class="container">
+            <div class="calc-card">
+                <div>
+                    <span class="kicker kicker-light">Free tool</span>
+                    <h2>1.5 HP or 2.25 HP? Find out in 20 seconds.</h2>
+                    <p>Tell us the room size, how sunny it is and how many people use it. We&rsquo;ll recommend the right unit &mdash; no sign-up.</p>
+                </div>
+                <a class="btn btn-pill btn-light btn-lg" th:href="@{/calculator}">Open the AC calculator <svg class="ico"><use href="#i-arrow"/></svg></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <span class="kicker">Recent jobs</span>
+                <h2>Homes, clinics and offices we kept cool this year</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <article class="job-card">
+                        <img th:src="@{/img/family.jpg}" alt="A family relaxing at home under a newly installed split AC" loading="lazy">
+                        <div class="job-body">
+                            <span class="job-tag">Home &middot; Maadi</span>
+                            <h3>Three inverter splits in one morning</h3>
+                            <p>Replaced 12-year-old units in a family apartment, reusing existing copper lines after a pressure test. Bills down by a third.</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="job-card">
+                        <img th:src="@{/img/rooftop.jpg}" alt="A row of new outdoor condensing units on a clinic rooftop" loading="lazy">
+                        <div class="job-body">
+                            <span class="job-tag">Clinic &middot; Heliopolis</span>
+                            <h3>Six condensers replaced over a weekend</h3>
+                            <p>A dental clinic&rsquo;s rooftop units swapped Friday-to-Saturday so patients never noticed. Now on our Business plan.</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="job-card">
+                        <img th:src="@{/img/office.jpg}" alt="An open-plan office with ceiling cassette AC units" loading="lazy">
+                        <div class="job-body">
+                            <span class="job-tag">Office &middot; New Cairo</span>
+                            <h3>Fourteen cassettes, monthly care</h3>
+                            <p>Monthly maintenance with a service log for every unit. Breakdowns went from weekly to none in the last six months.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-5">
+                    <span class="kicker">Customers say</span>
+                    <h2>Rated 4.9 by the people who let us in</h2>
+                    <p class="text-secondary">Reviews shown are illustrative for this demo website.</p>
+                    <ul class="sectors">
+                        <li><svg class="ico"><use href="#i-home"/></svg>Homes &amp; villas</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Offices</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Clinics &amp; pharmacies</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Restaurants &amp; caf&eacute;s</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Shops &amp; showrooms</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Schools &amp; nurseries</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7">
+                    <div class="reviews">
+                        <figure class="review">
+                            <blockquote>&ldquo;Booked at 10, technician at my door by 3. He explained everything and the price was exactly what the website said.&rdquo;</blockquote>
+                            <figcaption><strong>Nourhan A.</strong> &middot; Nasr City</figcaption>
+                        </figure>
+                        <figure class="review">
+                            <blockquote>&ldquo;We moved our three branches to the Business plan. One invoice, a log for every unit, and they actually turn up in four hours.&rdquo;</blockquote>
+                            <figcaption><strong>Dr. Sherif M.</strong> &middot; clinic owner, Heliopolis</figcaption>
+                        </figure>
+                        <figure class="review">
+                            <blockquote>&ldquo;They told me I didn&rsquo;t need a new unit &mdash; just a gas top-up and a proper clean. Honest people.&rdquo;</blockquote>
+                            <figcaption><strong>Hesham K.</strong> &middot; Sheikh Zayed</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-5">
+                    <span class="kicker">Where we work</span>
+                    <h2>Covering <span th:text="${#arrays.length(areas)}">10</span> districts across Greater Cairo</h2>
+                    <ul class="area-chips">
+                        <li th:each="a : ${areas}" th:text="${a.label}">Area</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7">
+                    <span class="kicker">FAQ</span>
+                    <h2 class="mb-4">Good questions</h2>
+                    <div class="accordion faq" id="faq">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">How often should an AC be cleaned?</button></h3>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq"><div class="accordion-body">In Cairo&rsquo;s dust, at least twice a year &mdash; before summer and mid-season. Units running all day in shops or clinics benefit from quarterly or monthly visits.</div></div>
+                        </div>
+                        <div class="accordion-item">
+                            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">Do you charge for the visit if you can&rsquo;t fix it?</button></h3>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">The inspection fee covers diagnosis. If you go ahead with the repair, it&rsquo;s deducted from the final price.</div></div>
+                        </div>
+                        <div class="accordion-item">
+                            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">Which brands do you service?</button></h3>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">All the common split, cassette and ducted brands sold in Egypt. Our technicians carry universal parts and order brand-specific ones the same day.</div></div>
+                        </div>
+                        <div class="accordion-item">
+                            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">Can I reschedule a booking?</button></h3>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Yes &mdash; call or WhatsApp us with your booking reference at least two hours before the slot.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container text-center">
+            <h2>Too warm already?</h2>
+            <p>Book online now, or call us &mdash; we answer Saturday to Thursday, 8&nbsp;am to 8&nbsp;pm.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <a class="btn btn-pill btn-coral btn-lg" th:href="@{/book}">Book a visit</a>
+                <a class="btn btn-pill btn-light btn-lg" th:href="${company.phoneHref()}"><svg class="ico"><use href="#i-phone"/></svg><span th:text="${company.phone}">Phone</span></a>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

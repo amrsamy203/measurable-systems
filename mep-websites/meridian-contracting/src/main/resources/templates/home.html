@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Turnkey MEP contractor in Egypt</title>
+    <meta name="description" content="Meridian delivers design, supply, installation and commissioning of HVAC, electrical, plumbing, fire protection and ELV systems for hospitals, offices, schools and resorts across Egypt.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="hero" th:style="'--bg: url(' + @{/img/hero.jpg} + ')'">
+        <div class="container">
+            <div class="hero-content">
+                <p class="eyebrow">Turnkey MEP contractor · Egypt since <span th:text="${company.founded}">2009</span></p>
+                <h1>Building systems that work from <span class="text-signal">day one.</span></h1>
+                <p class="lead">Mechanical, electrical, plumbing and life-safety works — designed, supplied, installed and commissioned by one accountable team, on hospitals, towers, schools and resorts.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a class="btn btn-signal btn-lg" th:href="@{/contact}">Request a quote</a>
+                    <a class="btn btn-outline-light btn-lg" th:href="@{/projects}">View our projects</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="container">
+                <dl class="row g-0">
+                    <div class="col-6 col-lg-3 stat"><dt><span th:attr="data-count=${year - company.founded}" th:text="${year - company.founded}">16</span>+</dt><dd>Years in MEP contracting</dd></div>
+                    <div class="col-6 col-lg-3 stat"><dt><span data-count="140">140</span>+</dt><dd>Projects handed over</dd></div>
+                    <div class="col-6 col-lg-3 stat"><dt><span data-count="1.2" data-decimals="1">1.2</span>M m²</dt><dd>Built-up area serviced</dd></div>
+                    <div class="col-6 col-lg-3 stat"><dt><span data-count="650">650</span></dt><dd>Engineers &amp; technicians</dd></div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust" aria-label="Selected clients">
+        <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <span class="trust-label">Trusted by</span>
+            <span class="wordmark">NILE CREST <em>Health</em></span>
+            <span class="wordmark">orbit<b>/</b>developments</span>
+            <span class="wordmark">CAPITAL GATE <em>Schools</em></span>
+            <span class="wordmark">Marsa<b>·</b>Hotels</span>
+            <span class="wordmark">DELTA <em>FOODS</em></span>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow eyebrow-dark">What we deliver</p>
+                    <h2>Six disciplines. One contract. One point of accountability.</h2>
+                </div>
+                <a class="link-arrow" th:href="@{/services}">All services <svg class="ico"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="row g-3 g-lg-4">
+                <div class="col-md-6 col-lg-4" th:each="service, it : ${services}">
+                    <a class="service-card" th:href="@{/services/{slug}(slug=${service.slug})}">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <span class="service-icon"><svg><use th:href="${'#i-' + service.icon}"/></svg></span>
+                            <span class="service-no" th:text="${#numbers.formatInteger(it.count, 2)}">01</span>
+                        </div>
+                        <h3 th:text="${service.name}">Service</h3>
+                        <p th:text="${service.summary}">Summary</p>
+                        <p class="service-metric"><strong th:text="${service.metricValue}">1,850 TR</strong> <span th:text="${service.metricLabel}">label</span></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">How we work</p>
+                    <h2>From shop drawings to signed commissioning reports.</h2>
+                </div>
+            </div>
+            <ol class="process">
+                <li><span class="process-step">01</span><h3>Design &amp; coordinate</h3><p>Value-engineered design, BIM clash detection and shop drawings approved before procurement.</p></li>
+                <li><span class="process-step">02</span><h3>Procure</h3><p>Submittals, samples and factory tests — from approved manufacturers, with traceable lead times.</p></li>
+                <li><span class="process-step">03</span><h3>Install</h3><p>Prefabricated where possible, supervised by discipline engineers, inspected floor by floor.</p></li>
+                <li><span class="process-step">04</span><h3>Test &amp; commission</h3><p>Pressure tests, TAB, integrated systems testing and witness sessions with consultants.</p></li>
+                <li><span class="process-step">05</span><h3>Maintain</h3><p>Planned maintenance contracts with 24/7 call-out so systems keep their day-one performance.</p></li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow eyebrow-dark">Featured projects</p>
+                    <h2>Recent work across healthcare, education, offices and hospitality.</h2>
+                </div>
+                <a class="link-arrow" th:href="@{/projects}">All projects <svg class="ico"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="row g-4">
+                <div th:each="project, it : ${featured}" th:class="${it.first} ? 'col-lg-8' : 'col-md-6 col-lg-4'">
+                    <article class="feature-card" th:classappend="${it.first} ? 'feature-card-lg'">
+                        <img th:src="@{/img/{f}(f=${project.image})}" th:alt="${project.name}" loading="lazy" width="1024" height="768">
+                        <div class="feature-card-body">
+                            <p class="project-meta"><span th:text="${project.sector.label}">Sector</span> · <span th:text="${project.location}">Location</span></p>
+                            <h3><a class="stretched-link" th:href="@{/projects/{slug}(slug=${project.slug})}" th:text="${project.name}">Project</a></h3>
+                            <p class="d-none d-md-block" th:if="${it.first}" th:text="${project.summary}">Summary</p>
+                            <ul class="feature-stats" th:if="${it.first}">
+                                <li th:each="stat : ${project.stats}"><strong th:text="${stat.value}">1</strong><span th:text="${stat.label}">label</span></li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-lg-5">
+                    <p class="eyebrow eyebrow-dark">Industries we serve</p>
+                    <h2>Different buildings, different risks. We plan for both.</h2>
+                    <p class="text-body-secondary">A hospital needs pressure cascades and redundant power; a resort needs quiet rooms and its own water; a data centre needs every component maintainable while running. Our sector teams have done each before.</p>
+                </div>
+                <div class="col-lg-7">
+                    <ul class="sector-list">
+                        <li th:each="entry : ${sectorCounts}">
+                            <a th:href="@{/projects(sector=${entry.key.slug})}">
+                                <span>
+                                    <strong th:text="${entry.key.label}">Sector</strong>
+                                    <small th:text="${entry.key.description}">Description</small>
+                                </span>
+                                <span class="sector-count" th:text="${entry.value} + ' ' + (${entry.value} == 1 ? 'project' : 'projects')">2 projects</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="img-frame">
+                        <img th:src="@{/img/team.jpg}" alt="Meridian site engineers reviewing MEP drawings" loading="lazy" width="1024" height="768">
+                        <div class="img-frame-badge"><strong>0</strong><span>lost-time incidents in 2025</span></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="eyebrow eyebrow-dark">Why Meridian</p>
+                    <h2>Engineers on site, not just on the letterhead.</h2>
+                    <ul class="check-list">
+                        <li><svg class="ico"><use href="#i-check"/></svg><span><strong>In-house design office</strong> — 40 engineers producing shop drawings and BIM coordination to LOD 400.</span></li>
+                        <li><svg class="ico"><use href="#i-check"/></svg><span><strong>Prefabrication workshop</strong> — ductwork and riser modules built off-site to cut programme and waste.</span></li>
+                        <li><svg class="ico"><use href="#i-check"/></svg><span><strong>Certified quality &amp; safety</strong> — ISO 9001, 14001 and 45001, and Grade 1 contractor classification.</span></li>
+                        <li><svg class="ico"><use href="#i-check"/></svg><span><strong>After-sales that answers</strong> — maintenance teams with a 4-hour emergency response in Greater Cairo.</span></li>
+                    </ul>
+                    <a class="btn btn-ink mt-2" th:href="@{/about}">About the company</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="container">
+            <figure class="quote">
+                <blockquote>“Meridian ran the outpatient block and the construction site next to it as two separate worlds. Patients never noticed there was a contractor on the campus.”</blockquote>
+                <figcaption><strong>Projects Director</strong> · Nile Crest Medical Center</figcaption>
+            </figure>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

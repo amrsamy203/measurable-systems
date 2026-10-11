@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Booking confirmed</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section">
+        <div class="container">
+            <div class="confirm-card" th:with="c=${confirmation}">
+                <span class="confirm-icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+                <h1>You&rsquo;re booked, <span th:text="${c.name}">there</span>!</h1>
+                <p class="lead">We&rsquo;ll call within 30 minutes during working hours to confirm the price.</p>
+                <p class="reference-chip">Booking reference <strong th:text="${c.reference}">TQ-2026-000001</strong></p>
+                <dl class="confirm-details">
+                    <div><dt>Service</dt><dd><span th:text="${c.service}">Service</span> &times; <span th:text="${c.units}">1</span></dd></div>
+                    <div><dt>When</dt><dd><span th:text="${#temporals.format(c.date, 'EEEE d MMMM yyyy')}">Date</span>, <span th:text="${c.slot}">Slot</span></dd></div>
+                    <div><dt>Area</dt><dd th:text="${c.area}">Area</dd></div>
+                </dl>
+                <p class="small text-secondary">Need to change something? Call or WhatsApp us with your reference.</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                    <a class="btn btn-pill btn-soft" th:href="${company.whatsappHref()}" target="_blank" rel="noopener">WhatsApp us</a>
+                    <a class="btn btn-pill btn-coral" th:href="@{/plans}">See maintenance plans</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

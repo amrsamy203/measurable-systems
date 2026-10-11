@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Studio</title>
+    <meta name="description" content="An independent studio of building-services engineers in Cairo — team, principles and accreditations.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <header th:replace="~{fragments/ui :: pageIntro('Studio', 'Independent engineers, <em>no</em> equipment to sell.', null)}"></header>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-7">
+                    <p class="studio-text">
+                        Axis was founded in <span th:text="${company.founded}">2013</span> by two engineers who had spent a decade fixing on site what should have been solved on paper.
+                        Today the studio is 38 people in Dokki &mdash; mechanical, electrical, public-health, fire and ELV engineers, BIM specialists and energy modellers &mdash; working on buildings across Egypt and the Gulf.
+                    </p>
+                    <p class="studio-text">
+                        We are independent: we do not install, supply or represent any manufacturer. Our only product is the design, so our only incentive is that it works.
+                    </p>
+                </div>
+                <div class="col-lg-5">
+                    <figure class="figure-frame">
+                        <img th:src="@{/img/desk.jpg}" alt="MEP drawings and a thermal survey on a desk in the studio" loading="lazy">
+                        <figcaption class="mono">Fig. — We measure existing buildings before we redesign them.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-rule">
+        <div class="container">
+            <div class="section-head">
+                <p class="mono eyebrow">Principles</p>
+                <h2>Three things we won&rsquo;t compromise on.</h2>
+            </div>
+            <ol class="principles">
+                <li><h3>Coordinated, not just drawn.</h3><p>Every project is modelled and clash-checked across all disciplines before it is issued for tender.</p></li>
+                <li><h3>Performance you can measure.</h3><p>We set energy, comfort and water targets at concept and report against them at every stage.</p></li>
+                <li><h3>Buildable and maintainable.</h3><p>Plant rooms with access, risers with spare capacity and specifications the local market can actually supply.</p></li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="section section-rule">
+        <div class="container">
+            <div class="section-head">
+                <p class="mono eyebrow">People</p>
+                <h2>The partners and leads.</h2>
+            </div>
+            <div class="team-grid">
+                <article class="person" th:each="m : ${team}">
+                    <span class="person-mark" th:text="${m.initials()}" aria-hidden="true">DK</span>
+                    <h3 th:text="${m.name}">Name</h3>
+                    <p class="mono person-role" th:text="${m.role}">Role</p>
+                    <p class="person-cred" th:text="${m.credentials}">Credentials</p>
+                    <p class="person-bio" th:text="${m.bio}">Bio</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-rule" id="accreditations">
+        <div class="container">
+            <div class="section-head">
+                <p class="mono eyebrow">Accreditations</p>
+                <h2>Memberships &amp; certifications.</h2>
+            </div>
+            <dl class="accreditations">
+                <div><dt>ISO 9001:2015</dt><dd>Quality management for engineering design services</dd></div>
+                <div><dt>ISO 19650</dt><dd>BIM information management, applied on all model-based projects</dd></div>
+                <div><dt>USGBC</dt><dd>Five LEED Accredited Professionals on staff</dd></div>
+                <div><dt>ASHRAE</dt><dd>Corporate member; two staff hold ASHRAE certifications</dd></div>
+                <div><dt>NFPA</dt><dd>Certified Fire Protection Specialist on staff</dd></div>
+                <div><dt>Egyptian Engineers Syndicate</dt><dd>Consultant-grade registration for all disciplines</dd></div>
+            </dl>
+            <p class="mono small-print">All companies, people and credentials on this site are fictional.</p>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

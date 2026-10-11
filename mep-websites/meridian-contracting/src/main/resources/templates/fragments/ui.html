@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+
+<section th:fragment="pageHeader(eyebrow, title, lead, image)" class="page-header"
+         th:style="${image != null} ? '--bg: url(' + @{/img/{f}(f=${image})} + ')'">
+    <div class="container">
+        <p class="eyebrow" th:text="${eyebrow}">Eyebrow</p>
+        <h1 th:text="${title}">Title</h1>
+        <p class="lead" th:if="${lead != null}" th:text="${lead}">Lead</p>
+    </div>
+</section>
+
+<article th:fragment="projectCard(project)" class="project-card">
+    <a th:href="@{/projects/{slug}(slug=${project.slug})}" class="stretched-link" th:aria-label="${project.name}"></a>
+    <div class="project-card-media">
+        <img th:src="@{/img/{f}(f=${project.image})}" th:alt="${project.name}" loading="lazy" width="1024" height="768">
+        <span class="status" th:classappend="${project.status.name() == 'IN_PROGRESS'} ? 'status-live'" th:text="${project.status.label}">Completed</span>
+    </div>
+    <div class="project-card-body">
+        <p class="project-meta"><span th:text="${project.sector.label}">Sector</span> · <span th:text="${project.year}">2024</span></p>
+        <h3 th:text="${project.name}">Project</h3>
+        <p class="project-loc"><svg class="ico"><use href="#i-pin"/></svg><span th:text="${project.location}">Location</span> · <span th:text="${project.areaLabel()}">m²</span></p>
+    </div>
+</article>
+
+</body>
+</html>

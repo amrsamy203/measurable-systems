@@ -7,6 +7,8 @@
 #   CaseFlow      http://localhost:8081
 #   DispatchGrid  http://localhost:8082
 #   RelateAI      http://localhost:8083
+#   MEP websites  http://localhost:3099/mep/meridian/  /mep/axis/  /mep/thermiq/
+#                 (direct: 8091, 8092, 8093 — mounted under the same context paths)
 #   RabbitMQ UI   http://localhost:15672 (caseflow / caseflow)
 #                 http://localhost:15673 (dispatchgrid / dispatchgrid)
 
@@ -24,6 +26,9 @@ services:
       - caseflow
       - dispatchgrid
       - relateai
+      - mep-meridian
+      - mep-axis
+      - mep-thermiq
     restart: unless-stopped
 
   portfolio:
@@ -192,8 +197,45 @@ services:
       retries: 20
       start_period: 90s
 
+  # ---------- MEP websites (Spring Boot + Thymeleaf, see mep-websites/) ----------
+  mep-meridian:
+    build:
+      context: ./mep-websites
+      args: { MODULE: meridian-contracting }
+    ports:
+      - "8091:8080"
+    environment:
+      SERVER_SERVLET_CONTEXT_PATH: /mep/meridian
+    mem_limit: 384m
+    restart: unless-stopped
+
+  mep-axis:
+    build:
+      context: ./mep-websites
+      args: { MODULE: axis-consultants }
+    ports:
+      - "8092:8080"
+    environment:
+      SERVER_SERVLET_CONTEXT_PATH: /mep/axis
+    mem_limit: 384m
+    restart: unless-stopped
+
+  mep-thermiq:
+    build:
+      context: ./mep-websites
+      args: { MODULE: thermiq-hvac }
+    ports:
+      - "8093:8080"
+    environment:
+      SERVER_SERVLET_CONTEXT_PATH: /mep/thermiq
+    volumes:
+      - thermiq_data:/app/data
+    mem_limit: 384m
+    restart: unless-stopped
+
 volumes:
   caseflow_pg:
   dispatchgrid_pg:
   relateai_pg:
   relateai_uploads:
+  thermiq_data:

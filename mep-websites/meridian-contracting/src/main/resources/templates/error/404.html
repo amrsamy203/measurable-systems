@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Page not found</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section thanks">
+        <div class="container text-center">
+            <p class="reference">404</p>
+            <h1>This page isn't on the drawings.</h1>
+            <p class="lead">The link may be outdated, or the project may no longer be published.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                <a class="btn btn-ink" th:href="@{/projects}">See all projects</a>
+                <a class="btn btn-outline-ink" th:href="@{/}">Back to home</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

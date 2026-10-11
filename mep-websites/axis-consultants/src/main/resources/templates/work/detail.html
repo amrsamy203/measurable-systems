@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title th:text="${study.title}">Case study</title>
+    <meta name="description" th:content="${study.headline}">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <article class="case">
+        <header class="page-intro">
+            <div class="container">
+                <nav class="mono crumbs" aria-label="Breadcrumb">
+                    <a th:href="@{/work}">Work</a> /
+                    <a th:href="@{/work(sector=${study.sector.slug})}" th:text="${study.sector.label}">Sector</a>
+                </nav>
+                <h1 th:text="${study.title}">Title</h1>
+                <p class="lead case-lead" th:text="${study.headline}">Headline</p>
+            </div>
+        </header>
+
+        <div class="container">
+            <dl class="meta-table">
+                <div><dt class="mono">Client</dt><dd th:text="${study.client}">Client</dd></div>
+                <div><dt class="mono">Location</dt><dd th:text="${study.location}">Location</dd></div>
+                <div><dt class="mono">Completed</dt><dd th:text="${study.year}">2025</dd></div>
+                <div><dt class="mono">Floor area</dt><dd th:text="${study.areaLabel()}">0 m²</dd></div>
+            </dl>
+
+            <th:block th:replace="~{fragments/ui :: visual(${study}, true)}"></th:block>
+
+            <div class="row g-4 g-lg-5 case-body">
+                <div class="col-lg-8">
+                    <section class="case-section">
+                        <p class="mono eyebrow">01 — The brief</p>
+                        <p class="case-text" th:text="${study.brief}">Brief</p>
+                    </section>
+                    <section class="case-section">
+                        <p class="mono eyebrow">02 — Approach</p>
+                        <ol class="approach-list">
+                            <li th:each="step : ${study.approach}" th:text="${step}">Step</li>
+                        </ol>
+                    </section>
+                    <section class="case-section">
+                        <p class="mono eyebrow">03 — Outcome</p>
+                        <dl class="outcomes">
+                            <div th:each="o : ${study.outcomes}">
+                                <dt th:text="${o.value}">0</dt>
+                                <dd th:text="${o.label}">Label</dd>
+                            </div>
+                        </dl>
+                    </section>
+                </div>
+                <aside class="col-lg-4">
+                    <div class="aside-block">
+                        <p class="mono eyebrow">Our scope</p>
+                        <ol class="stage-coverage">
+                            <li th:each="s : ${stages}"
+                                th:classappend="${study.covers(s)} ? 'is-in'">
+                                <span class="mono" th:text="${s.number}">01</span> <span th:text="${s.label}">Stage</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="aside-block">
+                        <p class="mono eyebrow">Disciplines</p>
+                        <ul class="plain-list">
+                            <li th:each="d : ${study.disciplines}">
+                                <a th:href="@{/expertise} + '#' + ${d.slug}"><span class="mono code" th:text="${d.code}">M</span> <span th:text="${d.label}">Discipline</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="aside-block">
+                        <p class="mono eyebrow">Tools</p>
+                        <p class="tags"><span class="tag" th:each="t : ${study.tools}" th:text="${t}">Tool</span></p>
+                    </div>
+                    <a class="btn btn-ink w-100" th:href="@{/contact(disciplines=${study.disciplines})}">Brief us on a similar project</a>
+                </aside>
+            </div>
+        </div>
+    </article>
+
+    <section class="next-case">
+        <div class="container">
+            <a th:href="@{/work/{slug}(slug=${next.slug})}">
+                <span class="mono">Next case study</span>
+                <span class="next-title"><th:block th:text="${next.title}">Next</th:block> <svg class="ico"><use href="#i-arrow"/></svg></span>
+            </a>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

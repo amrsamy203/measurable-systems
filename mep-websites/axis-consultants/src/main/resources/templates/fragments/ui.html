@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+
+<!-- A case-study visual: the photograph when there is one, otherwise a drawn "plate". -->
+<th:block th:fragment="visual(study, large)">
+    <figure class="figure-frame" th:if="${study.hasImage()}" th:classappend="${large} ? 'is-large'">
+        <img th:src="@{/img/{f}(f=${study.image})}" th:alt="${study.title}" loading="lazy">
+        <figcaption class="mono" th:if="${large and study.caption != null}" th:text="${study.caption}">Caption</figcaption>
+    </figure>
+    <div class="plate" th:unless="${study.hasImage()}" th:classappend="${large} ? 'is-large'" aria-hidden="true">
+        <span class="plate-codes" th:text="${study.disciplineCodes()}">M · E · P</span>
+        <span class="plate-meta mono" th:text="${study.sector.label + ' — ' + study.areaLabel()}">Sector — area</span>
+        <svg class="plate-cross"><use href="#i-cross"/></svg>
+    </div>
+</th:block>
+
+<article th:fragment="caseCard(study)" class="case-card">
+    <a th:href="@{/work/{slug}(slug=${study.slug})}" class="case-link">
+        <th:block th:replace="~{fragments/ui :: visual(${study}, false)}"></th:block>
+        <p class="case-meta mono">
+            <span th:text="${study.sector.label}">Sector</span>
+            <span th:text="${study.year}">2025</span>
+        </p>
+        <h3 class="case-title" th:text="${study.title}">Title</h3>
+        <p class="case-headline" th:text="${study.headline}">Headline</p>
+        <p class="case-foot mono">
+            <span th:text="${study.disciplineCodes()}">M · E</span>
+            <span th:text="${study.areaLabel()}">0 m²</span>
+        </p>
+    </a>
+</article>
+
+<header th:fragment="pageIntro(index, title, lead)" class="page-intro">
+    <div class="container">
+        <p class="mono eyebrow" th:text="${index}">00 — Section</p>
+        <h1 th:utext="${title}">Title</h1>
+        <p class="lead" th:if="${lead != null}" th:text="${lead}">Lead</p>
+    </div>
+</header>
+
+</body>
+</html>

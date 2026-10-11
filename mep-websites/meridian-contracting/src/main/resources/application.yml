@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: meridian-contracting
+  messages:
+    basename: mep-messages
+  web:
+    resources:
+      cache:
+        period: 7d
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /css/**,/js/**
+
+server:
+  port: ${PORT:8091}
+  # Behind the portfolio gateway the site is mounted under a prefix; set
+  # SERVER_SERVLET_CONTEXT_PATH=/mep/meridian there. Thymeleaf @{...} links follow it.
+  forward-headers-strategy: framework
+  servlet:
+    session:
+      tracking-modes: cookie
+  tomcat:
+    use-relative-redirects: true
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+company:
+  name: Meridian MEP Contracting
+  tagline: Turnkey mechanical, electrical & plumbing works
+  phone: "+20 2 2500 0190"
+  email: projects@meridian-mep.example
+  whatsapp: "+20 100 000 0190"
+  address: Building 14, North 90th Street, New Cairo, Egypt
+  hours: Sun–Thu · 08:30–17:30
+  founded: 2009
+  portfolio-url: ${PORTFOLIO_URL:https://amrsamy203.github.io}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  thymeleaf:
+    cache: false
+  web:
+    resources:
+      cache:
+        period: 0
+      chain:
+        strategy:
+          content:
+            enabled: false

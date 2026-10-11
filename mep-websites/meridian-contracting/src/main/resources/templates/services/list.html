@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>MEP services</title>
+    <meta name="description" content="HVAC, electrical, plumbing, fire protection, low current and BMS — design, supply, installation, testing and commissioning.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section th:replace="~{fragments/ui :: pageHeader('Services', 'Every system a building needs to run.', 'Design-and-build or build-to-design: we take the full electromechanical package or a single discipline, with the same commissioning standard.', 'ceiling.jpg')}"></section>
+
+    <section class="section">
+        <div class="container">
+            <div class="service-row" th:each="service, it : ${services}" th:id="${service.slug}" th:classappend="${it.even} ? 'service-row-flip'">
+                <div class="service-row-media">
+                    <img th:src="@{/img/{f}(f=${service.image})}" th:alt="${service.name}" loading="lazy" width="1024" height="768">
+                </div>
+                <div class="service-row-body">
+                    <span class="service-icon"><svg><use th:href="${'#i-' + service.icon}"/></svg></span>
+                    <h2 th:text="${service.name}">Service</h2>
+                    <p th:text="${service.summary}">Summary</p>
+                    <ul class="check-list check-list-compact">
+                        <li th:each="item : ${#lists.size(service.scope) > 3 ? service.scope.subList(0, 3) : service.scope}">
+                            <svg class="ico"><use href="#i-check"/></svg><span th:text="${item}">Scope</span>
+                        </li>
+                    </ul>
+                    <a class="link-arrow" th:href="@{/services/{slug}(slug=${service.slug})}">Scope, systems &amp; standards <svg class="ico"><use href="#i-arrow"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <p class="eyebrow">Technical capabilities</p>
+            <h2 class="mb-4">What sits behind every discipline.</h2>
+            <div class="row g-4 capability-grid">
+                <div class="col-md-6 col-lg-3"><svg class="ico-lg"><use href="#i-cube"/></svg><h3>BIM coordination</h3><p>Federated Revit models, Navisworks clash detection and LOD 400 shop drawings.</p></div>
+                <div class="col-md-6 col-lg-3"><svg class="ico-lg"><use href="#i-wrench"/></svg><h3>Prefabrication</h3><p>4,000 m² workshop for ductwork, pipe spools, skids and riser modules.</p></div>
+                <div class="col-md-6 col-lg-3"><svg class="ico-lg"><use href="#i-gauge"/></svg><h3>Testing &amp; commissioning</h3><p>In-house TAB team, power-quality analysers and integrated systems testing.</p></div>
+                <div class="col-md-6 col-lg-3"><svg class="ico-lg"><use href="#i-clock"/></svg><h3>Maintenance contracts</h3><p>Planned preventive maintenance with 24/7 emergency call-out.</p></div>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

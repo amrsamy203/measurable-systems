@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>AC size calculator</title>
+    <meta name="description" content="Find the right AC size in horsepower and BTU for your room, based on area, sun exposure and occupants.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="kicker">Free tool</span>
+            <h1>Which AC size do I need?</h1>
+            <p class="lead">An undersized unit runs all day and never cools; an oversized one wastes money. Answer four questions for a recommendation.</p>
+        </div>
+    </section>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <form class="soft-card" th:action="@{/calculator}" th:object="${calc}" method="post" novalidate>
+                        <div th:replace="~{common/fragments :: errorSummary}"></div>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="area">Room area (m²)</label>
+                                <input class="form-control form-control-lg" type="number" min="5" max="200" th:field="*{area}" th:errorclass="is-invalid" inputmode="numeric" placeholder="e.g. 20" required>
+                                <div th:replace="~{common/fragments :: fieldError('area')}"></div>
+                                <p class="form-text">Length × width. A 4 m × 5 m room is 20 m².</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="occupants">People usually in the room</label>
+                                <input class="form-control form-control-lg" type="number" min="1" max="30" th:field="*{occupants}" th:errorclass="is-invalid" inputmode="numeric" required>
+                                <div th:replace="~{common/fragments :: fieldError('occupants')}"></div>
+                            </div>
+                            <div class="col-12">
+                                <span class="form-label d-block" id="roomLabel">Room type</span>
+                                <div class="pill-options" role="radiogroup" aria-labelledby="roomLabel">
+                                    <label th:each="r : ${rooms}">
+                                        <input type="radio" th:field="*{room}" th:value="${r}">
+                                        <span th:text="${r.label}">Room</span>
+                                    </label>
+                                </div>
+                                <div th:replace="~{common/fragments :: fieldError('room')}"></div>
+                            </div>
+                            <div class="col-12">
+                                <span class="form-label d-block" id="sunLabel">Sun exposure</span>
+                                <div class="pill-options" role="radiogroup" aria-labelledby="sunLabel">
+                                    <label th:each="s : ${exposures}">
+                                        <input type="radio" th:field="*{sun}" th:value="${s}">
+                                        <span th:text="${s.label}">Sun</span>
+                                    </label>
+                                </div>
+                                <div th:replace="~{common/fragments :: fieldError('sun')}"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-pill btn-coral btn-lg mt-4" type="submit">Recommend a size</button>
+                    </form>
+                </div>
+
+                <aside class="col-lg-5">
+                    <div class="result-card" th:if="${result != null}" id="result" aria-live="polite">
+                        <span class="kicker kicker-light">Our recommendation</span>
+                        <th:block th:if="${result.singleUnit()}">
+                            <p class="result-size" th:text="${result.suggestedSize.label}">2.25 HP</p>
+                            <p class="result-sub">split unit &middot; about <strong th:text="${#numbers.formatInteger(result.btu, 1, 'COMMA')}">0</strong> BTU/h needed</p>
+                        </th:block>
+                        <th:block th:unless="${result.singleUnit()}">
+                            <p class="result-size"><span th:text="${result.unitsNeeded}">2</span> &times; <span th:text="${result.suggestedSize.label}">3 HP</span></p>
+                            <p class="result-sub">about <strong th:text="${#numbers.formatInteger(result.btu, 1, 'COMMA')}">0</strong> BTU/h &mdash; too much for one split unit. A concealed ducted system may suit this space better.</p>
+                        </th:block>
+                        <a class="btn btn-pill btn-light w-100 mt-3"
+                           th:href="@{/book(service='installation',units=${result.unitsNeeded})}">Book an installation</a>
+                        <p class="result-note">A technician confirms the size on site, free of charge, before installing.</p>
+                    </div>
+
+                    <div class="soft-card" th:if="${result == null}">
+                        <h2 class="h5">Quick guide</h2>
+                        <table class="table size-table mb-0">
+                            <thead><tr><th scope="col">Room</th><th scope="col">Typical size</th></tr></thead>
+                            <tbody>
+                            <tr><td>up to 16 m²</td><td>1.5 HP</td></tr>
+                            <tr><td>16 – 25 m²</td><td>2.25 HP</td></tr>
+                            <tr><td>25 – 35 m²</td><td>3 HP</td></tr>
+                            <tr><td>35 – 45 m²</td><td>4 HP</td></tr>
+                            <tr><td>45 – 55 m²</td><td>5 HP</td></tr>
+                            </tbody>
+                        </table>
+                        <p class="small text-secondary mt-3 mb-0">For a living room with normal sun and two people. Sunny, busy or kitchen spaces need more.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

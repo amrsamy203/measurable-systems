@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title layout:title-pattern="$CONTENT_TITLE | Thermiq HVAC Services">Thermiq HVAC Services</title>
+    <meta name="theme-color" content="#2f80ed">
+    <th:block th:replace="~{common/fragments :: favicon('%232f80ed', 't')}"></th:block>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <th:block th:replace="~{common/fragments :: bootstrapCss}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/thermiq.css}">
+</head>
+<body>
+<th:block th:replace="~{fragments/icons :: sprite}"></th:block>
+<a class="visually-hidden-focusable skip" href="#main">Skip to content</a>
+
+<div th:replace="~{common/fragments :: demoNotice}"></div>
+
+<header class="site-header sticky-top" id="siteHeader">
+    <nav class="navbar navbar-expand-lg" aria-label="Primary">
+        <div class="container">
+            <a class="navbar-brand logo" th:href="@{/}" aria-label="Thermiq — home">
+                <span class="logo-mark" aria-hidden="true"><svg><use href="#i-snow"/></svg></span>
+                <span>thermiq</span>
+            </a>
+            <div class="d-flex align-items-center gap-2 order-lg-last">
+                <a class="btn btn-pill btn-ghost d-none d-xl-inline-flex" th:href="${company.phoneHref()}">
+                    <svg class="ico"><use href="#i-phone"/></svg><span th:text="${company.phone}">Phone</span>
+                </a>
+                <a class="btn btn-pill btn-coral d-none d-sm-inline-flex" th:href="@{/book}">Book a visit</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-lg-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/services}" th:classappend="${currentPath == '/services'} ? 'active'">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/plans}" th:classappend="${currentPath == '/plans'} ? 'active'">Maintenance plans</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/calculator}" th:classappend="${currentPath == '/calculator'} ? 'active'">AC size calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}" th:classappend="${currentPath == '/about'} ? 'active'">About</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}" th:classappend="${#strings.startsWith(currentPath, '/contact')} ? 'active'">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main id="main" layout:fragment="content"></main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="row g-4 g-lg-5">
+            <div class="col-lg-4">
+                <a class="logo logo-light" th:href="@{/}">
+                    <span class="logo-mark" aria-hidden="true"><svg><use href="#i-snow"/></svg></span>
+                    <span>thermiq</span>
+                </a>
+                <p class="mt-3" th:text="${company.tagline}">Tagline</p>
+                <p class="footer-hours"><svg class="ico"><use href="#i-clock"/></svg><span th:text="${company.hours}">Hours</span></p>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h2 class="footer-h">Services</h2>
+                <ul class="footer-links">
+                    <li><a th:href="@{/book(service='installation')}">Installation</a></li>
+                    <li><a th:href="@{/book(service='maintenance')}">Maintenance</a></li>
+                    <li><a th:href="@{/book(service='repair')}">Repairs</a></li>
+                    <li><a th:href="@{/plans}">Plans</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h2 class="footer-h">Company</h2>
+                <ul class="footer-links">
+                    <li><a th:href="@{/about}">About us</a></li>
+                    <li><a th:href="@{/about#coverage}">Coverage</a></li>
+                    <li><a th:href="@{/calculator}">AC calculator</a></li>
+                    <li><a th:href="@{/contact}">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h2 class="footer-h">Talk to a human</h2>
+                <ul class="footer-contact">
+                    <li><svg class="ico"><use href="#i-phone"/></svg><a th:href="${company.phoneHref()}" th:text="${company.phone}">Phone</a></li>
+                    <li><svg class="ico"><use href="#i-whatsapp"/></svg><a th:href="${company.whatsappHref()}" target="_blank" rel="noopener">WhatsApp us</a></li>
+                    <li><svg class="ico"><use href="#i-mail"/></svg><a th:href="${company.emailHref()}" th:text="${company.email}">Email</a></li>
+                    <li><svg class="ico"><use href="#i-pin"/></svg><span th:text="${company.address}">Address</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-base">
+            <span>&copy; <span th:text="${year}">2026</span> <span th:text="${company.name}">Thermiq</span> &middot; a fictional company for a portfolio demo</span>
+            <a th:href="${company.portfolioUrl}" target="_blank" rel="noopener">Designed &amp; built by Amr Samy</a>
+        </div>
+    </div>
+</footer>
+
+<nav class="action-bar d-lg-none" aria-label="Quick actions">
+    <a th:href="${company.phoneHref()}"><svg><use href="#i-phone"/></svg>Call</a>
+    <a th:href="${company.whatsappHref()}" target="_blank" rel="noopener"><svg><use href="#i-whatsapp"/></svg>WhatsApp</a>
+    <a class="is-primary" th:href="@{/book}"><svg><use href="#i-calendar"/></svg>Book</a>
+</nav>
+
+<th:block th:replace="~{common/fragments :: bootstrapJs}"></th:block>
+<script th:src="@{/js/thermiq.js}" defer></script>
+</body>
+</html>

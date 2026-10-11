@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Book a visit</title>
+    <meta name="description" content="Book an AC technician online. Choose a service, your area and a time slot.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="kicker">Online booking</span>
+            <h1>Book a technician</h1>
+            <p class="lead">Pick an open slot, tell us where you are, and we&rsquo;ll call to confirm the fixed price.</p>
+        </div>
+    </section>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="availability soft-card mb-4" aria-labelledby="availabilityTitle">
+                <div class="d-flex flex-wrap justify-content-between align-items-baseline gap-2 mb-3">
+                    <h2 class="h5 mb-0" id="availabilityTitle">Open slots this week</h2>
+                    <span class="small text-secondary">Tap a slot to select it. Closed on Fridays.</span>
+                </div>
+                <div class="day-grid">
+                    <div class="day" th:each="day : ${availability}">
+                        <p class="day-name">
+                            <strong th:text="${#temporals.format(day.date, 'EEE')}">Sun</strong>
+                            <span th:text="${#temporals.format(day.date, 'd MMM')}">12 Oct</span>
+                        </p>
+                        <th:block th:each="s : ${day.slots}">
+                            <a class="slot" th:if="${s.open}"
+                               th:href="@{/book(date=${day.date},slot=${s.slot},service=${booking.service?.slug},units=${booking.units})} + '#details'"
+                               th:classappend="${booking.date == day.date and booking.slot == s.slot} ? 'is-selected'">
+                                <span th:text="${s.slot.label}">09:00 – 12:00</span>
+                                <small th:text="${s.remaining == 1} ? 'last crew' : ${s.remaining + ' crews'}">3 crews</small>
+                            </a>
+                            <span class="slot is-full" th:unless="${s.open}">
+                                <span th:text="${s.slot.label}">09:00 – 12:00</span>
+                                <small th:text="${s.remaining == 0} ? 'full' : 'too soon'">full</small>
+                            </span>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <form class="soft-card booking-form" id="details" th:action="@{/book}" th:object="${booking}" method="post" novalidate>
+                        <div th:replace="~{common/fragments :: errorSummary}"></div>
+
+                        <h2 class="form-section">1. What do you need?</h2>
+                        <div class="service-options" role="radiogroup" aria-label="Service">
+                            <label th:each="s : ${services}">
+                                <input type="radio" th:field="*{service}" th:value="${s}">
+                                <span>
+                                    <svg class="ico"><use th:href="${'#i-' + s.icon}"/></svg>
+                                    <strong th:text="${s.label}">Service</strong>
+                                    <small>from EGP <th:block th:text="${#numbers.formatInteger(s.fromPrice, 1, 'COMMA')}">0</th:block></small>
+                                </span>
+                            </label>
+                        </div>
+                        <div th:replace="~{common/fragments :: fieldError('service')}"></div>
+
+                        <div class="row g-3 mt-1">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="units">Number of AC units</label>
+                                <input class="form-control" type="number" min="1" max="10" th:field="*{units}" th:errorclass="is-invalid" inputmode="numeric" required>
+                                <div th:replace="~{common/fragments :: fieldError('units')}"></div>
+                            </div>
+                        </div>
+
+                        <h2 class="form-section">2. When?</h2>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="date">Date</label>
+                                <input class="form-control" type="date" th:field="*{date}" th:errorclass="is-invalid"
+                                       th:min="${#lists.isEmpty(availability)} ? null : ${availability[0].date}" required>
+                                <div th:replace="~{common/fragments :: fieldError('date')}"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="slot">Time slot</label>
+                                <select class="form-select" th:field="*{slot}" th:errorclass="is-invalid" required>
+                                    <option value="">Choose…</option>
+                                    <option th:each="s : ${slots}" th:value="${s}" th:text="${s.label}">Slot</option>
+                                </select>
+                                <div th:replace="~{common/fragments :: fieldError('slot')}"></div>
+                            </div>
+                        </div>
+
+                        <h2 class="form-section">3. Where?</h2>
+                        <div class="row g-3">
+                            <div class="col-sm-5">
+                                <label class="form-label" for="area">Area</label>
+                                <select class="form-select" th:field="*{area}" th:errorclass="is-invalid" required>
+                                    <option value="">Choose your area…</option>
+                                    <option th:each="a : ${areas}" th:value="${a}" th:text="${a.label}">Area</option>
+                                </select>
+                                <div th:replace="~{common/fragments :: fieldError('area')}"></div>
+                                <p class="form-text">Not listed? <a th:href="@{/contact}">Message us</a> &mdash; we may still reach you.</p>
+                            </div>
+                            <div class="col-sm-7">
+                                <label class="form-label" for="address">Street address, building, floor &amp; flat</label>
+                                <input class="form-control" type="text" th:field="*{address}" th:errorclass="is-invalid" autocomplete="street-address" required>
+                                <div th:replace="~{common/fragments :: fieldError('address')}"></div>
+                            </div>
+                        </div>
+
+                        <h2 class="form-section">4. Your details</h2>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="fullName">Name</label>
+                                <input class="form-control" type="text" th:field="*{fullName}" th:errorclass="is-invalid" autocomplete="name" required>
+                                <div th:replace="~{common/fragments :: fieldError('fullName')}"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="phone">Mobile</label>
+                                <input class="form-control" type="tel" th:field="*{phone}" th:errorclass="is-invalid" autocomplete="tel" placeholder="010 1234 5678" required>
+                                <div th:replace="~{common/fragments :: fieldError('phone')}"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="email">Email <span class="text-secondary small">(optional)</span></label>
+                                <input class="form-control" type="email" th:field="*{email}" th:errorclass="is-invalid" autocomplete="email">
+                                <div th:replace="~{common/fragments :: fieldError('email')}"></div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="notes">Anything we should know? <span class="text-secondary small">(optional)</span></label>
+                                <textarea class="form-control" rows="3" th:field="*{notes}" th:errorclass="is-invalid" placeholder="Brand, error code, parking, building access…"></textarea>
+                                <div th:replace="~{common/fragments :: fieldError('notes')}"></div>
+                            </div>
+                        </div>
+
+                        <div class="hp" aria-hidden="true">
+                            <label for="website">Leave this field empty</label>
+                            <input type="text" th:field="*{website}" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <button class="btn btn-pill btn-coral btn-lg mt-4" type="submit">Confirm booking</button>
+                    </form>
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="soft-card">
+                        <h2 class="h5">Every visit includes</h2>
+                        <ul class="tick-list">
+                            <li><svg class="ico"><use href="#i-check"/></svg>Fixed price agreed before work starts</li>
+                            <li><svg class="ico"><use href="#i-check"/></svg>WhatsApp when the technician is on the way</li>
+                            <li><svg class="ico"><use href="#i-check"/></svg>Shoe covers and a tidy work area</li>
+                            <li><svg class="ico"><use href="#i-check"/></svg>90-day workmanship guarantee</li>
+                        </ul>
+                    </div>
+                    <div class="soft-card mt-3">
+                        <h2 class="h5">Prefer to talk?</h2>
+                        <p class="mb-2"><a th:href="${company.phoneHref()}" th:text="${company.phone}">Phone</a></p>
+                        <p class="small text-secondary mb-0" th:text="${company.hours}">Hours</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

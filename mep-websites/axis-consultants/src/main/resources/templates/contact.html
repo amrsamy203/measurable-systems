@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Start a brief</title>
+    <meta name="description" content="Send Axis a project brief. A partner replies within two working days.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <header th:replace="~{fragments/ui :: pageIntro('Contact', 'Start a <em>brief</em>.', 'Tell us what you are building. A partner — not a sales team — reads every brief and replies within two working days.')}"></header>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-8">
+                    <form class="brief-form" th:action="@{/contact}" th:object="${brief}" method="post" novalidate>
+                        <div th:replace="~{common/fragments :: errorSummary}"></div>
+
+                        <fieldset>
+                            <legend><span class="mono">A</span> About you</legend>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="fullName">Full name</label>
+                                    <input class="form-control" type="text" th:field="*{fullName}" th:errorclass="is-invalid" autocomplete="name" required>
+                                    <div th:replace="~{common/fragments :: fieldError('fullName')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="organisation">Organisation</label>
+                                    <input class="form-control" type="text" th:field="*{organisation}" th:errorclass="is-invalid" autocomplete="organization" required>
+                                    <div th:replace="~{common/fragments :: fieldError('organisation')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="email">Email</label>
+                                    <input class="form-control" type="email" th:field="*{email}" th:errorclass="is-invalid" autocomplete="email" required>
+                                    <div th:replace="~{common/fragments :: fieldError('email')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="phone">Phone <span class="optional">optional</span></label>
+                                    <input class="form-control" type="tel" th:field="*{phone}" th:errorclass="is-invalid" autocomplete="tel" placeholder="02 2736 4400">
+                                    <div th:replace="~{common/fragments :: fieldError('phone')}"></div>
+                                </div>
+                                <div class="col-12">
+                                    <span class="form-label d-block" id="roleLabel">You are</span>
+                                    <div class="option-grid" role="radiogroup" aria-labelledby="roleLabel">
+                                        <label class="option-card compact" th:each="r : ${roles}">
+                                            <input type="radio" th:field="*{role}" th:value="${r}">
+                                            <span th:text="${r.label}">Role</span>
+                                        </label>
+                                    </div>
+                                    <div th:replace="~{common/fragments :: fieldError('role')}"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><span class="mono">B</span> The project</legend>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="projectName">Project name</label>
+                                    <input class="form-control" type="text" th:field="*{projectName}" th:errorclass="is-invalid" placeholder="Working title is fine" required>
+                                    <div th:replace="~{common/fragments :: fieldError('projectName')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="sector">Sector</label>
+                                    <select class="form-select" th:field="*{sector}" th:errorclass="is-invalid" required>
+                                        <option value="">Choose…</option>
+                                        <option th:each="s : ${sectors}" th:value="${s}" th:text="${s.label}">Sector</option>
+                                    </select>
+                                    <div th:replace="~{common/fragments :: fieldError('sector')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="startStage">Appoint us from</label>
+                                    <select class="form-select" th:field="*{startStage}" th:errorclass="is-invalid" required>
+                                        <option value="">Choose…</option>
+                                        <option th:each="s : ${stages}" th:value="${s}" th:text="${s.number + ' — ' + s.label}">Stage</option>
+                                    </select>
+                                    <div th:replace="~{common/fragments :: fieldError('startStage')}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="area">Gross area (m²) <span class="optional">optional</span></label>
+                                    <input class="form-control" type="number" min="100" step="100" th:field="*{area}" th:errorclass="is-invalid" inputmode="numeric">
+                                    <div th:replace="~{common/fragments :: fieldError('area')}"></div>
+                                </div>
+                                <div class="col-12">
+                                    <span class="form-label d-block" id="disciplinesLabel">Disciplines</span>
+                                    <div class="option-grid" role="group" aria-labelledby="disciplinesLabel">
+                                        <label class="option-card compact" th:each="d : ${disciplineOptions}">
+                                            <input type="checkbox" th:field="*{disciplines}" th:value="${d}">
+                                            <span><span class="mono code" th:text="${d.code}">M</span> <th:block th:text="${d.label}">Discipline</th:block></span>
+                                        </label>
+                                    </div>
+                                    <div th:replace="~{common/fragments :: fieldError('disciplines')}"></div>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="description">About the project</label>
+                                    <textarea class="form-control" rows="6" th:field="*{description}" th:errorclass="is-invalid" required
+                                              placeholder="Building type and size, where the design is today, target dates, anything unusual about the site…"></textarea>
+                                    <div th:replace="~{common/fragments :: fieldError('description')}"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="hp" aria-hidden="true">
+                            <label for="website">Leave this field empty</label>
+                            <input type="text" th:field="*{website}" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" th:field="*{consent}" th:errorclass="is-invalid">
+                            <label class="form-check-label" th:for="${#ids.prev('consent')}">Axis may use these details to reply to this brief.</label>
+                            <div th:replace="~{common/fragments :: fieldError('consent')}"></div>
+                        </div>
+
+                        <button class="btn btn-ink btn-lg" type="submit">Send brief <svg class="ico"><use href="#i-arrow"/></svg></button>
+                    </form>
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="aside-block">
+                        <p class="mono eyebrow">Direct</p>
+                        <ul class="plain-list">
+                            <li><a th:href="${company.emailHref()}" th:text="${company.email}">Email</a></li>
+                            <li><a th:href="${company.phoneHref()}" th:text="${company.phone}">Phone</a></li>
+                            <li th:text="${company.hours}">Hours</li>
+                            <li th:text="${company.address}">Address</li>
+                        </ul>
+                    </div>
+                    <div class="aside-block">
+                        <p class="mono eyebrow">A useful brief includes</p>
+                        <ul class="tick-list">
+                            <li><svg class="ico"><use href="#i-check"/></svg><span>Architectural drawings, even early sketches</span></li>
+                            <li><svg class="ico"><use href="#i-check"/></svg><span>Target programme and procurement route</span></li>
+                            <li><svg class="ico"><use href="#i-check"/></svg><span>Any certification target (LEED, EDGE)</span></li>
+                            <li><svg class="ico"><use href="#i-check"/></svg><span>Who else is appointed on the team</span></li>
+                        </ul>
+                    </div>
+                    <div class="aside-block">
+                        <p class="mono eyebrow">Not sure about budget?</p>
+                        <p>Try the <a th:href="@{/fee-estimator}">design-fee estimator</a> first &mdash; it takes a minute.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

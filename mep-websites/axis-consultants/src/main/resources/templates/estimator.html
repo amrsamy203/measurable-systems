@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Design-fee estimator</title>
+    <meta name="description" content="Estimate MEP design fees for your building from floor area, complexity and the disciplines you need.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <header th:replace="~{fragments/ui :: pageIntro('Tool — Fee estimator', 'What should MEP design <em>cost</em>?', 'An indicative design fee built from the same rates and area bands we use for real proposals. No email required.')}"></header>
+
+    <section class="section pt-0">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-7">
+                    <form class="estimator" th:action="@{/fee-estimator}" th:object="${estimateForm}" method="post" novalidate>
+                        <div th:replace="~{common/fragments :: errorSummary}"></div>
+
+                        <div class="form-step">
+                            <span class="mono step-no">01</span>
+                            <div class="flex-grow-1">
+                                <label class="form-label" for="area">Gross built-up area</label>
+                                <div class="input-group area-input">
+                                    <input class="form-control" type="number" min="500" max="500000" step="100"
+                                           th:field="*{area}" th:errorclass="is-invalid" inputmode="numeric" required>
+                                    <span class="input-group-text mono">m²</span>
+                                </div>
+                                <input class="form-range mt-3" type="range" min="500" max="100000" step="500"
+                                       data-sync="area" aria-label="Area slider" hidden>
+                                <div th:replace="~{common/fragments :: fieldError('area')}"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <span class="mono step-no">02</span>
+                            <fieldset class="flex-grow-1">
+                                <legend class="form-label">Building complexity</legend>
+                                <div class="option-grid three">
+                                    <label class="option-card" th:each="c : ${complexities}">
+                                        <input type="radio" th:field="*{complexity}" th:value="${c}">
+                                        <span><strong th:text="${c.label}">Standard</strong><small th:text="${c.examples}">Examples</small></span>
+                                    </label>
+                                </div>
+                                <div th:replace="~{common/fragments :: fieldError('complexity')}"></div>
+                            </fieldset>
+                        </div>
+
+                        <div class="form-step">
+                            <span class="mono step-no">03</span>
+                            <fieldset class="flex-grow-1">
+                                <legend class="form-label">Disciplines</legend>
+                                <div class="option-grid">
+                                    <label class="option-card compact" th:each="d : ${disciplineOptions}">
+                                        <input type="checkbox" th:field="*{disciplines}" th:value="${d}">
+                                        <span><span class="mono code" th:text="${d.code}">M</span> <th:block th:text="${d.label}">Discipline</th:block></span>
+                                    </label>
+                                </div>
+                                <div th:replace="~{common/fragments :: fieldError('disciplines')}"></div>
+                            </fieldset>
+                        </div>
+
+                        <div class="form-step">
+                            <span class="mono step-no">04</span>
+                            <fieldset class="flex-grow-1">
+                                <legend class="form-label">Add-ons</legend>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" th:field="*{bim}">
+                                    <label class="form-check-label" th:for="${#ids.prev('bim')}">Coordinated BIM model (LOD 350)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" th:field="*{supervision}">
+                                    <label class="form-check-label" th:for="${#ids.prev('supervision')}">Site supervision through handover</label>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <button class="btn btn-ink btn-lg" type="submit">Calculate estimate <svg class="ico"><use href="#i-arrow"/></svg></button>
+                    </form>
+                </div>
+
+                <aside class="col-lg-5">
+                    <div class="estimate-panel" th:if="${estimate != null}" id="estimate" aria-live="polite">
+                        <p class="mono eyebrow">Indicative design fee</p>
+                        <p class="estimate-range">
+                            EGP <span th:text="${#numbers.formatInteger(estimate.low, 1, 'COMMA')}">0</span>
+                            &ndash; <span th:text="${#numbers.formatInteger(estimate.high, 1, 'COMMA')}">0</span>
+                        </p>
+                        <p class="mono estimate-point">Point estimate: EGP <span th:text="${#numbers.formatInteger(estimate.total, 1, 'COMMA')}">0</span></p>
+                        <table class="estimate-lines">
+                            <caption class="mono">
+                                Based on <span th:text="${#numbers.formatInteger(estimate.area, 1, 'COMMA')}">0</span> m²
+                                (<span th:text="${#numbers.formatInteger(estimate.effectiveArea, 1, 'COMMA')}">0</span> m² after area bands)
+                            </caption>
+                            <tbody>
+                            <tr th:each="line : ${estimate.lines}">
+                                <th scope="row" th:text="${line.label}">Line</th>
+                                <td th:text="${#numbers.formatInteger(line.amount, 1, 'COMMA')}">0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p class="estimate-note" th:if="${estimate.minimumApplied}">Our minimum commission applies to projects of this size.</p>
+                        <a class="btn btn-paper w-100 mt-3"
+                           th:href="@{/contact(area=${estimateForm.area},disciplines=${estimateForm.disciplines})}">Send this as a project brief</a>
+                        <p class="small-print mono">Indicative only, excluding VAT. A fixed proposal follows a review of your drawings.</p>
+                    </div>
+
+                    <div class="method-panel" th:if="${estimate == null}">
+                        <p class="mono eyebrow">How the estimate works</p>
+                        <ol class="method-list">
+                            <li><strong>Area bands.</strong> The first 10,000 m² is priced in full, the next 40,000 m² at 85% and anything above 50,000 m² at 70%.</li>
+                            <li><strong>Discipline rates.</strong> Each discipline has its own rate per m², reflecting design effort.</li>
+                            <li><strong>Complexity.</strong> Hospitals, labs and data centres take more engineering per m² than offices.</li>
+                            <li><strong>Add-ons.</strong> BIM coordination and site supervision are priced as a share of the design fee.</li>
+                        </ol>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

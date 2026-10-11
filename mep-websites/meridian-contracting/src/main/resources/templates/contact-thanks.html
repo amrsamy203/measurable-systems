@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Request received</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section thanks">
+        <div class="container text-center">
+            <span class="thanks-icon"><svg><use href="#i-check"/></svg></span>
+            <h1>Thank you, <span th:text="${name}">there</span>.</h1>
+            <p class="lead">Your quotation request is registered as</p>
+            <p class="reference" th:text="${reference}">MER-RFQ-2026-0001</p>
+            <p class="text-body-secondary">Quote this reference in any follow-up. A discipline lead will contact you within one working day.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                <a class="btn btn-ink" th:href="@{/projects}">Browse our projects</a>
+                <a class="btn btn-outline-ink" th:href="@{/}">Back to home</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

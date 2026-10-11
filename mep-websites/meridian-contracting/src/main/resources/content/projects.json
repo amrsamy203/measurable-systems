@@ -1,0 +1,243 @@
+[
+  {
+    "slug": "nile-crest-medical-center",
+    "name": "Nile Crest Medical Center",
+    "sector": "HEALTHCARE",
+    "location": "New Cairo",
+    "year": 2024,
+    "status": "COMPLETED",
+    "areaSqm": 42000,
+    "client": "Private healthcare group",
+    "disciplines": ["hvac", "electrical", "plumbing", "fire-protection", "low-current", "bms"],
+    "image": "plantroom.jpg",
+    "featured": true,
+    "summary": "A 220-bed hospital delivered turnkey — from operating-theatre air systems to a fully integrated BMS — while the outpatient block stayed open.",
+    "challenge": "Eight operating theatres and twelve isolation rooms needed tightly controlled pressure cascades and 100% fresh-air handling units. The board also required a phased opening: the outpatient block had to treat patients while the inpatient tower was still under construction next door.",
+    "approach": [
+      "Split the central plant into two independently commissioned loops so the outpatient block could run on its own chillers from month nine",
+      "Built a full-scale mock-up of one operating theatre to prove pressure, air-change and noise targets before installing the other seven",
+      "Coordinated MEP services in a federated BIM model, resolving 1,140 clashes before any sleeve was cast",
+      "Integrated medical-gas alarms, fire alarm and theatre HVAC status into one BMS front end for the facilities team"
+    ],
+    "outcomes": [
+      "Outpatient block opened on schedule while construction continued on the tower",
+      "All theatres passed third-party validation at first inspection",
+      "Handover two weeks ahead of the contractual date",
+      "Zero lost-time incidents across 1.3 million work hours"
+    ],
+    "stats": [
+      {"value": "1,850 TR", "label": "Chilled-water capacity"},
+      {"value": "46", "label": "Air handling units"},
+      {"value": "14 mo", "label": "Design to handover"}
+    ]
+  },
+  {
+    "slug": "orbit-business-park",
+    "name": "Orbit Business Park",
+    "sector": "COMMERCIAL",
+    "location": "Sheikh Zayed City",
+    "year": 2025,
+    "status": "COMPLETED",
+    "areaSqm": 64000,
+    "client": "Orbit Developments",
+    "disciplines": ["hvac", "electrical", "fire-protection", "low-current", "bms"],
+    "image": "ceiling.jpg",
+    "featured": true,
+    "summary": "Three grade-A office towers sharing one central plant, designed to run 28% below the ASHRAE 90.1 energy baseline.",
+    "challenge": "The developer was pre-leasing floors to multinational tenants with strict sustainability targets, and needed services that could be split per tenant without duplicating plant in every tower.",
+    "approach": [
+      "Central chilled-water plant with variable-primary pumping serving all three towers",
+      "Tenant-ready risers with spare capacity and per-floor energy sub-metering",
+      "Demand-controlled ventilation driven by CO₂ sensors in meeting areas",
+      "BMS dashboards that bill chilled water and power per tenant automatically"
+    ],
+    "outcomes": [
+      "Energy use 28% below baseline in the first year of operation",
+      "Tenant fit-outs connected without shutting down neighbouring floors",
+      "Documentation package submitted for LEED Gold"
+    ],
+    "stats": [
+      {"value": "3", "label": "Office towers"},
+      {"value": "28%", "label": "Below energy baseline"},
+      {"value": "LEED Gold", "label": "Certification target"}
+    ]
+  },
+  {
+    "slug": "smart-village-data-hub",
+    "name": "Smart Village Data Hub",
+    "sector": "DATA_CENTRES",
+    "location": "Smart Village, Giza",
+    "year": 2026,
+    "status": "IN_PROGRESS",
+    "areaSqm": 9800,
+    "client": "Regional cloud operator",
+    "disciplines": ["electrical", "hvac", "fire-protection", "low-current", "bms"],
+    "image": "datacenter.jpg",
+    "featured": false,
+    "summary": "A Tier III-designed colocation facility with 2N UPS topology and hot-aisle containment, now in final integrated systems testing.",
+    "challenge": "The operator needed concurrent maintainability — any component of power or cooling can be taken offline without dropping a single rack — inside an existing shell building with limited roof space.",
+    "approach": [
+      "2N UPS and N+1 generators arranged so each data hall has two independent power paths",
+      "Hot-aisle containment with in-row cooling to fit the restricted roof plant area",
+      "Clean-agent suppression and very early smoke detection in every white space",
+      "Integrated systems testing with load banks simulating full IT load"
+    ],
+    "outcomes": [
+      "Level 4 commissioning completed for the first two data halls",
+      "Design PUE of 1.38 at full load",
+      "Final integrated systems test scheduled for Q2 2026"
+    ],
+    "stats": [
+      {"value": "Tier III", "label": "Design standard"},
+      {"value": "2N", "label": "UPS topology"},
+      {"value": "4 MW", "label": "IT load"}
+    ]
+  },
+  {
+    "slug": "shoreline-mall",
+    "name": "Shoreline Mall",
+    "sector": "COMMERCIAL",
+    "location": "New Alamein",
+    "year": 2024,
+    "status": "COMPLETED",
+    "areaSqm": 72000,
+    "client": "Shoreline Retail Holdings",
+    "disciplines": ["hvac", "electrical", "plumbing", "fire-protection", "low-current", "bms"],
+    "image": "switchgear.jpg",
+    "featured": false,
+    "summary": "A 180-unit coastal mall connected to district cooling, delivered in an 11-month fast-track programme before the summer season.",
+    "challenge": "The opening date was fixed by the summer season, and the coastal climate meant salt-laden air would attack exposed equipment within months.",
+    "approach": [
+      "Connected to the city's district cooling network through a dedicated energy transfer station",
+      "Specified coated coils and marine-grade enclosures for all outdoor equipment",
+      "Ran tenant fit-out MEP in parallel with base-build through a dedicated tenant coordination team"
+    ],
+    "outcomes": [
+      "Opened on the fixed date with 92% of units trading",
+      "Single integrated fire alarm and voice evacuation across all retail zones"
+    ],
+    "stats": [
+      {"value": "180", "label": "Retail units"},
+      {"value": "2,400 TR", "label": "District cooling load"},
+      {"value": "11 mo", "label": "Fast-track programme"}
+    ]
+  },
+  {
+    "slug": "olive-grove-residences",
+    "name": "Olive Grove Residences",
+    "sector": "RESIDENTIAL",
+    "location": "6th of October City",
+    "year": 2024,
+    "status": "COMPLETED",
+    "areaSqm": 88000,
+    "client": "Private residential developer",
+    "disciplines": ["electrical", "plumbing", "fire-protection", "low-current"],
+    "image": "team.jpg",
+    "featured": false,
+    "summary": "Eighteen residential buildings delivered in four phases, each handed over with its own utility connections and snag-free MEP.",
+    "challenge": "Buyers were moving into finished phases while later phases were still being built, so services had to be isolated per phase and every apartment had to pass inspection before key handover.",
+    "approach": [
+      "Standardised apartment MEP layouts prefabricated as plumbing and electrical kits",
+      "Phase-by-phase utility connections with temporary isolation between live and construction zones",
+      "Digital snagging app so every defect was photographed, assigned and closed within 48 hours"
+    ],
+    "outcomes": [
+      "1,240 apartments handed over across four phases",
+      "Average of 0.6 MEP snags per apartment at handover"
+    ],
+    "stats": [
+      {"value": "18", "label": "Buildings"},
+      {"value": "1,240", "label": "Apartments"},
+      {"value": "0.6", "label": "Snags per unit"}
+    ]
+  },
+  {
+    "slug": "capital-gate-international-school",
+    "name": "Capital Gate International School",
+    "sector": "EDUCATION",
+    "location": "New Administrative Capital",
+    "year": 2023,
+    "status": "COMPLETED",
+    "areaSqm": 36500,
+    "client": "Capital Gate Education",
+    "disciplines": ["hvac", "electrical", "plumbing", "fire-protection", "low-current"],
+    "image": "school.jpg",
+    "featured": true,
+    "summary": "A K-12 campus for 1,200 students, fully serviced in nine months so classes could start on the first day of the academic year.",
+    "challenge": "The academic calendar fixed the deadline. Any delay to MEP would push 1,200 students into temporary classrooms for a full term.",
+    "approach": [
+      "Zoned VRF with per-classroom control so empty rooms don't cool",
+      "Pre-assembled riser modules lifted into place to save four weeks on site",
+      "Campus-wide IP CCTV, access control and PA on one structured cabling backbone",
+      "Night-shift installation in completed blocks while day shifts continued structure works"
+    ],
+    "outcomes": [
+      "School opened on the first day of term",
+      "Classroom cooling energy 22% lower than the design estimate in year one"
+    ],
+    "stats": [
+      {"value": "1,200", "label": "Students"},
+      {"value": "64", "label": "Independently zoned classrooms"},
+      {"value": "9 mo", "label": "Fast-track build"}
+    ]
+  },
+  {
+    "slug": "delta-foods-processing-plant",
+    "name": "Delta Foods Processing Plant",
+    "sector": "INDUSTRIAL",
+    "location": "10th of Ramadan City",
+    "year": 2023,
+    "status": "COMPLETED",
+    "areaSqm": 28000,
+    "client": "Delta Foods",
+    "disciplines": ["hvac", "electrical", "plumbing", "fire-protection"],
+    "image": "firepump.jpg",
+    "featured": false,
+    "summary": "Process cooling, cold stores, compressed air and life-safety systems for a food-processing plant running three shifts a day.",
+    "challenge": "Food-safety audits required hygienic, washable installations, and the client could not stop the existing production line while the new hall was connected.",
+    "approach": [
+      "Stainless-steel and hygienic-grade installations in all production zones",
+      "Cold rooms down to −25 °C with redundant refrigeration circuits",
+      "Hot-tap connections to existing utilities so production never stopped"
+    ],
+    "outcomes": [
+      "New hall connected with zero hours of production downtime",
+      "Passed the client's food-safety audit at the first visit"
+    ],
+    "stats": [
+      {"value": "−25 °C", "label": "Cold-store rooms"},
+      {"value": "3,150 kVA", "label": "Connected load"},
+      {"value": "0", "label": "Hours of downtime"}
+    ]
+  },
+  {
+    "slug": "marsa-azure-resort",
+    "name": "Marsa Azure Resort",
+    "sector": "HOSPITALITY",
+    "location": "Red Sea coast",
+    "year": 2022,
+    "status": "COMPLETED",
+    "areaSqm": 51000,
+    "client": "Marsa Hotels",
+    "disciplines": ["hvac", "plumbing", "electrical", "fire-protection"],
+    "image": "resort.jpg",
+    "featured": true,
+    "summary": "A 320-key beach resort with its own desalination plant, six pools and guest rooms that stay quiet and cool through the desert summer.",
+    "challenge": "The remote site had no reliable municipal water, and guest-room noise limits ruled out the usual rooftop condensing units next to villas.",
+    "approach": [
+      "Reverse-osmosis desalination plant with storage for three days of peak demand",
+      "Central chilled water piped to villa clusters so no noisy equipment sits near guest rooms",
+      "Pool and water-feature plant rooms designed for salt-air durability",
+      "Treated grey water reused for landscape irrigation"
+    ],
+    "outcomes": [
+      "Guest-room noise below NR 30 across all room types",
+      "40% of irrigation demand met with recycled water"
+    ],
+    "stats": [
+      {"value": "320", "label": "Keys"},
+      {"value": "1,500 m³", "label": "Water treated per day"},
+      {"value": "6", "label": "Pools & water features"}
+    ]
+  }
+]

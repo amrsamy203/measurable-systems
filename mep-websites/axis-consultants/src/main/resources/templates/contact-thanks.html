@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Brief received</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section thanks">
+        <div class="container">
+            <p class="mono eyebrow">Brief received</p>
+            <h1>Thank you, <span th:text="${name}">there</span>.</h1>
+            <p class="lead">We&rsquo;ve logged <strong th:text="${projectName}">your project</strong> under the reference below. A partner will reply within two working days.</p>
+            <p class="reference mono" th:text="${reference}">AXS-BRF-2026-0001</p>
+            <div class="d-flex flex-wrap gap-3">
+                <a class="btn btn-ink" th:href="@{/work}">Browse case studies</a>
+                <a class="btn btn-line" th:href="@{/}">Back to home</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

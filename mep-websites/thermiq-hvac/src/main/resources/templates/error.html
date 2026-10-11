@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Something went wrong</title>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section">
+        <div class="container">
+            <div class="confirm-card">
+                <span class="confirm-icon is-muted" aria-hidden="true" th:text="${status}">500</span>
+                <h1>Something went wrong</h1>
+                <p class="lead">Please try again, or call us on <a th:href="${company.phoneHref()}" th:text="${company.phone}">phone</a> &mdash; we&rsquo;ll book you in by phone.</p>
+                <a class="btn btn-pill btn-coral" th:href="@{/}">Back to home</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

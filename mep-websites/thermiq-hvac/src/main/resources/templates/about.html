@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>About us</title>
+    <meta name="description" content="Thermiq is a Cairo HVAC service company with certified technicians, fixed prices and a 90-day guarantee.">
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-lg-6">
+                    <span class="kicker">About Thermiq</span>
+                    <h1>The AC company we wished we could call</h1>
+                    <p class="lead">We started in <span th:text="${company.founded}">2017</span> with two technicians and one rule: tell people the price before you start. Today 40 technicians cover Greater Cairo &mdash; same rule.</p>
+                </div>
+                <div class="col-lg-6">
+                    <img class="rounded-media" th:src="@{/img/family.jpg}" alt="A family relaxing at home with a wall-mounted AC unit" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section pt-0">
+        <div class="container">
+            <dl class="stat-row">
+                <div><dt>18,000+</dt><dd>visits completed</dd></div>
+                <div><dt>40</dt><dd>certified technicians</dd></div>
+                <div><dt>4.9 / 5</dt><dd>average rating</dd></div>
+                <div><dt>3 h</dt><dd>median time to visit</dd></div>
+            </dl>
+        </div>
+    </section>
+
+    <section class="section section-tint" id="certifications">
+        <div class="container">
+            <div class="section-title">
+                <span class="kicker">Certifications &amp; achievements</span>
+                <h2>Trained, insured and accountable</h2>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-3"><div class="cert"><svg class="ico"><use href="#i-shield"/></svg><h3>Refrigerant handling</h3><p>Every technician certified for safe R32 / R410A handling and recovery.</p></div></div>
+                <div class="col-md-6 col-lg-3"><div class="cert"><svg class="ico"><use href="#i-shield"/></svg><h3>ISO 9001:2015</h3><p>Quality-managed booking, dispatch and follow-up processes.</p></div></div>
+                <div class="col-md-6 col-lg-3"><div class="cert"><svg class="ico"><use href="#i-shield"/></svg><h3>Fully insured</h3><p>Public liability cover on every visit, at home or on site.</p></div></div>
+                <div class="col-md-6 col-lg-3"><div class="cert"><svg class="ico"><use href="#i-star"/></svg><h3>Cairo Home Services Award</h3><p>Best HVAC service provider, 2024 and 2025.</p></div></div>
+            </div>
+            <p class="small text-secondary mt-3 mb-0">Thermiq is fictional; certifications and awards are illustrative.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <span class="kicker">How we work</span>
+                    <h2>Small promises we keep every day</h2>
+                    <ul class="tick-list">
+                        <li><svg class="ico"><use href="#i-check"/></svg>A price before we pick up a tool</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Technicians in uniform with ID, on time or we call</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>Old parts shown to you, not just thrown away</li>
+                        <li><svg class="ico"><use href="#i-check"/></svg>90 days to call us back free if anything isn&rsquo;t right</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <img class="rounded-media" th:src="@{/img/office.jpg}" alt="An office cooled by ceiling cassette AC units maintained by Thermiq" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint" id="coverage">
+        <div class="container">
+            <div class="section-title">
+                <span class="kicker">Coverage</span>
+                <h2>Where our crews go</h2>
+            </div>
+            <ul class="area-chips justify-content-center">
+                <li th:each="a : ${areas}" th:text="${a.label}">Area</li>
+            </ul>
+            <p class="text-center mt-4"><a class="btn btn-pill btn-coral" th:href="@{/book}">Book a visit in your area</a></p>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>
