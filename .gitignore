@@ -40,10 +40,12 @@ yarn-error.log*
 # Personal documents — keep private (do not publish phone/address CV)
 Amr-Samy-resume.pdf
 *.pdf
+cv/
 
 # Local / private (not published to measurable-systems remote)
 portfolio-site/
 gateway/
+docker-compose.override.yml
 docs/freelancing/
 docs/DOCKER.md
 docs/constraints.md

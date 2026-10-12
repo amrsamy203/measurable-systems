@@ -1,43 +1,19 @@
-# Full Measurable Systems stack — portfolio + 3 demos + public gateway
+# Measurable Systems — 3 backend demos + 3 website demos
 # Usage: docker compose up --build
 #
 # URLs (host):
-#   Gateway       http://localhost:3099   (portfolio + /caseflow /dispatchgrid /relateai)
-#   Portfolio     http://localhost:3000
 #   CaseFlow      http://localhost:8081
 #   DispatchGrid  http://localhost:8082
 #   RelateAI      http://localhost:8083
-#   MEP websites  http://localhost:3099/mep/meridian/  /mep/axis/  /mep/thermiq/
-#                 (direct: 8091, 8092, 8093 — mounted under the same context paths)
+#   MEP websites  http://localhost:8091/mep/meridian/
+#                 http://localhost:8092/mep/axis/
+#                 http://localhost:8093/mep/thermiq/
 #   RabbitMQ UI   http://localhost:15672 (caseflow / caseflow)
 #                 http://localhost:15673 (dispatchgrid / dispatchgrid)
 
 name: amr-portfolio
 
 services:
-  gateway:
-    image: nginx:1.27-alpine
-    ports:
-      - "3099:80"
-    volumes:
-      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - portfolio
-      - caseflow
-      - dispatchgrid
-      - relateai
-      - mep-meridian
-      - mep-axis
-      - mep-thermiq
-    restart: unless-stopped
-
-  portfolio:
-    build:
-      context: ./portfolio-site
-    ports:
-      - "3000:80"
-    restart: unless-stopped
-
   # ---------- CaseFlow ----------
   caseflow-postgres:
     image: postgres:16-alpine
